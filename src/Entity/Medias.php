@@ -166,6 +166,7 @@ class Medias
     #[SerializedName('full_url')]
     public function getFullUrl(): string
     {
+        // return 'https://lrsquoescouad.maurice.webcup.hodi.host/webcup-the-end-page-final/public/uploads/' . $this->url;
         return 'http://localhost/theEndPage_Webcup/public/uploads/' . $this->url;
     }
 

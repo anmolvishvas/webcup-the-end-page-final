@@ -1,7 +1,9 @@
 import axios from "axios";
 import { RegisterRequest, UserResponse } from "../types/user";
 
-const API_URL = "/api";
+const API_URL = "https://localhost:8000/api";
+// const API_URL = "https://lrsquoescouad.maurice.webcup.hodi.host/api";
+
 
 interface ApiError {
   message: string;
@@ -20,11 +22,13 @@ interface LoginResponse {
     lastname: string;
     email: string;
     roles: string[];
-  }
+  };
 }
 
 export const userService = {
-  register: async (userData: RegisterRequest): Promise<{ success: boolean; data?: UserResponse; error?: string }> => {
+  register: async (
+    userData: RegisterRequest
+  ): Promise<{ success: boolean; data?: UserResponse; error?: string }> => {
     try {
       const response = await axios.post<UserResponse>(
         `${API_URL}/register`,
@@ -55,7 +59,10 @@ export const userService = {
     }
   },
 
-  login: async (email: string, password: string): Promise<{ success: boolean; data?: UserResponse; error?: string }> => {
+  login: async (
+    email: string,
+    password: string
+  ): Promise<{ success: boolean; data?: UserResponse; error?: string }> => {
     try {
       const response = await axios.post<LoginResponse>(
         `${API_URL}/auth/login_check`,
@@ -78,8 +85,8 @@ export const userService = {
             id: response.data.user.id,
             firstName: response.data.user.firstname,
             lastName: response.data.user.lastname,
-            email: response.data.user.email
-          }
+            email: response.data.user.email,
+          },
         },
       };
     } catch (error) {
@@ -97,16 +104,24 @@ export const userService = {
     }
   },
 
-  decrementAttempts: async (userId: number): Promise<{ success: boolean; attemptsLeft?: number; hasAttempts?: boolean; error?: string }> => {
+  decrementAttempts: async (
+    userId: number
+  ): Promise<{
+    success: boolean;
+    attemptsLeft?: number;
+    hasAttempts?: boolean;
+    error?: string;
+  }> => {
     try {
-      const response = await axios.put<{ attempts_left: number; has_attempts: boolean }>(
-        `${API_URL}/attempts/${userId}`
-      );
+      const response = await axios.put<{
+        attempts_left: number;
+        has_attempts: boolean;
+      }>(`${API_URL}/attempts/${userId}`);
 
       return {
         success: true,
         attemptsLeft: response.data.attempts_left,
-        hasAttempts: response.data.has_attempts
+        hasAttempts: response.data.has_attempts,
       };
     } catch (error) {
       const axiosError = error as { response?: { data: { message: string } } };
@@ -121,5 +136,5 @@ export const userService = {
         error: "Failed to update attempts",
       };
     }
-  }
+  },
 };
