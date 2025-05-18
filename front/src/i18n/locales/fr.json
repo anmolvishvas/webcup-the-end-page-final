@@ -1,4 +1,16 @@
 {
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur est survenue",
+    "retry": "Réessayer",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "close": "Fermer",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "view": "Voir",
+    "share": "Partager"
+  },
   "header": {
     "create": "Créer une page",
     "myPages": "Mes pages",
@@ -12,9 +24,9 @@
   },
   "loginPage": {
     "title": "Connexion",
-    "email": "Adresse e-mail",
+    "emailLabel": "Adresse e-mail",
     "emailPlaceholder": "Entrez votre e-mail",
-    "password": "Mot de passe",
+    "passwordLabel": "Mot de passe",
     "passwordPlaceholder": "Entrez votre mot de passe",
     "loginButton": "Se connecter",
     "registerPrompt": "Pas encore de compte ?",
@@ -22,16 +34,37 @@
     "error": "E-mail ou mot de passe invalide",
     "accountDeactivated": "Compte désactivé en raison de trop nombreuses tentatives échouées. Veuillez contacter le support.",
     "noAttemptsLeft": "Plus de tentatives de connexion restantes. Votre compte va être désactivé.",
-    "attemptsRemaining": "{{count}} tentatives restantes avant la désactivation du compte."
+    "attemptsRemaining": "{{count}} tentatives restantes avant la désactivation du compte.",
+    "errors": {
+      "emptyFields": "Veuillez remplir tous les champs",
+      "invalidCredentials": "E-mail ou mot de passe invalide",
+      "loginFailed": "La connexion a échoué. Veuillez réessayer.",
+      "demoError": "La connexion de démonstration a échoué. Veuillez réessayer."
+    },
+    "demo": {
+      "login": "Essayer le compte de démonstration",
+      "error": "La connexion de démonstration a échoué"
+    }
   },
-  "attempts": {
-    "warningTitle": "Échec de la Tentative de Connexion",
-    "lostOneAttempt": "Identifiants invalides. Votre tentative de connexion a échoué.",
-    "remainingAttempts": "Il vous reste {{count}} tentatives",
-    "remainingAttempts_one": "Il vous reste {{count}} tentative",
-    "warning": "Votre compte sera désactivé si vous épuisez vos tentatives. Assurez-vous d'utiliser les bons identifiants.",
-    "accountDeactivated": "Compte Désactivé",
-    "contactSupport": "Veuillez contacter le support pour réactiver votre compte."
+  "myPages": {
+    "title": "Mes Pages Finales",
+    "empty": "Vous n'avez pas encore créé de pages finales",
+    "createFirst": "Créez votre première page finale",
+    "filterByTone": "Filtrer par ton",
+    "sortBy": "Trier par",
+    "sortOptions": {
+      "newest": "Plus récent",
+      "oldest": "Plus ancien",
+      "mostViewed": "Plus vues",
+      "mostComments": "Plus commentées",
+      "highestRated": "Mieux notées"
+    },
+    "stats": {
+      "views": "{{count}} vues",
+      "comments": "{{count}} commentaires",
+      "rating": "Note de {{rating}}",
+      "created": "Créé le {{date}}"
+    }
   },
   "createPage": {
     "title": "Créez Votre Page Finale",
@@ -67,7 +100,17 @@
     "livePreview": "Aperçu en Direct",
     "savePublish": "Sauvegarder & Publier",
     "titlePreview": "Votre Titre Apparaîtra Ici",
-    "contentPreview": "Votre contenu apparaîtra ici..."
+    "contentPreview": "Votre contenu apparaîtra ici...",
+    "errors": {
+      "titleRequired": "Le titre est requis",
+      "contentRequired": "Le contenu est requis",
+      "uploadFailed": "Échec du téléchargement des médias",
+      "saveFailed": "Échec de l'enregistrement de la page"
+    },
+    "success": {
+      "saved": "Page enregistrée avec succès",
+      "published": "Page publiée avec succès"
+    }
   },
   "tones": {
     "dramatic": "dramatique",
@@ -84,5 +127,42 @@
     "harassment": "Contenu potentiellement harcelant : \"{{word}}\"",
     "threats": "Contenu potentiellement menaçant : \"{{word}}\"",
     "discrimination": "Contenu potentiellement discriminatoire : \"{{word}}\""
+  },
+  "attempts": {
+    "warningTitle": "Échec de la Tentative de Connexion",
+    "lostOneAttempt": "Identifiants invalides. Votre tentative de connexion a échoué.",
+    "remainingAttempts": "Il vous reste {{count}} tentatives",
+    "remainingAttempts_one": "Il vous reste {{count}} tentative",
+    "warning": "Votre compte sera désactivé si vous épuisez vos tentatives. Assurez-vous d'utiliser les bons identifiants.",
+    "accountDeactivated": "Compte Désactivé",
+    "contactSupport": "Veuillez contacter le support pour réactiver votre compte."
+  },
+  "errorPage": {
+    "title": "La Fin... de cette Page",
+    "notFound": {
+      "title": "404 - Un Chapitre Perdu",
+      "message": "Cette page s'est évanouie dans l'au-delà numérique...",
+      "description": "Comme un souvenir oublié, la page que vous cherchez semble s'être estompée. Peut-être n'était-ce qu'un moment éphémère, ou peut-être n'a-t-elle jamais existé."
+    },
+    "forbidden": {
+      "title": "403 - Un Adieu Privé",
+      "message": "Cet au revoir ne vous est pas destiné...",
+      "description": "Certains adieux sont destinés à rester privés, partagés uniquement avec des âmes choisies. Cette fin particulière est réservée à d'autres."
+    },
+    "serverError": {
+      "title": "500 - Un Rebondissement Dramatique",
+      "message": "Notre serveur a connu sa propre fin dramatique...",
+      "description": "Comme un tournant inattendu dans l'histoire de la vie, notre serveur a pris un détour malheureux. Nos guérisseurs numériques travaillent à sa résurrection."
+    },
+    "generic": {
+      "title": "Une Fin Improvisée",
+      "message": "Cette histoire a pris un tournant inattendu...",
+      "description": "Même dans les histoires les mieux écrites, parfois les choses ne se passent pas comme prévu. Nous travaillons à remettre ce chapitre sur la bonne voie."
+    },
+    "actions": {
+      "goHome": "Retourner au Début",
+      "tryAgain": "Réécrire ce Moment",
+      "goBack": "Chapitre Précédent"
+    }
   }
 } 

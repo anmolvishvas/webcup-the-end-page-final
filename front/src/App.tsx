@@ -11,6 +11,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { EndPageProvider } from './context/EndPageContext';
 import { AuthProvider } from './context/AuthContext';
 import BackgroundScene from './components/three/BackgroundScene';
+import ErrorPage from './components/ErrorPage';
 
 function App() {
   const [showScene, setShowScene] = useState(true);
@@ -42,6 +43,8 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              {/* Catch all route for 404s */}
+              <Route path="*" element={<ErrorPage setShowScene={setShowScene} />} />
             </Routes>
             {showScene && <BackgroundScene />}
           </div>

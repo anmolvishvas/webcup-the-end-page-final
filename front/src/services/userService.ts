@@ -1,7 +1,7 @@
 import axios from "axios";
 import { RegisterRequest, UserResponse } from "../types/user";
 
-const API_URL = "http://localhost:8000/api";
+const API_URL = "https://localhost:8000/api";
 
 interface ApiError {
   message: string;

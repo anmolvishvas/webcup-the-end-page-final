@@ -62,12 +62,6 @@ const HomePage = ({ setShowScene }: HomePageProps) => {
                   {tone === 'ironic' && 'Qui a besoin d\'adieux sincères ? Ajoutez une touche d\'humour à votre départ.'}
                   {tone === 'absurd' && 'Brisez toutes les conventions. Créez une expérience d\'adieu surréaliste et inattendue.'}
                 </p>
-                <Link 
-                  to="/create" 
-                  className="text-secondary hover:text-secondary-light inline-flex items-center"
-                >
-                  Essayer ce ton <ArrowRight className="ml-1 h-4 w-4" />
-                </Link>
               </div>
             ))}
           </div>

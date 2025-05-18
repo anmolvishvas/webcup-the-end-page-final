@@ -1,4 +1,16 @@
 {
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Try Again",
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "Close",
+    "edit": "Edit",
+    "delete": "Delete",
+    "view": "View",
+    "share": "Share"
+  },
   "header": {
     "create": "Create Page",
     "myPages": "My Pages",
@@ -12,9 +24,9 @@
   },
   "loginPage": {
     "title": "Login",
-    "email": "Email address",
+    "emailLabel": "Email address",
     "emailPlaceholder": "Enter your email",
-    "password": "Password",
+    "passwordLabel": "Password",
     "passwordPlaceholder": "Enter your password",
     "loginButton": "Login",
     "registerPrompt": "Don't have an account?",
@@ -22,7 +34,37 @@
     "error": "Invalid email or password",
     "accountDeactivated": "Account deactivated due to too many failed attempts. Please contact support.",
     "noAttemptsLeft": "No login attempts remaining. Your account will be deactivated.",
-    "attemptsRemaining": "{{count}} attempts remaining before account deactivation."
+    "attemptsRemaining": "{{count}} attempts remaining before account deactivation.",
+    "errors": {
+      "emptyFields": "Please fill in all fields",
+      "invalidCredentials": "Invalid email or password",
+      "loginFailed": "Login failed. Please try again.",
+      "demoError": "Demo login failed. Please try again."
+    },
+    "demo": {
+      "login": "Try Demo Account",
+      "error": "Demo login failed"
+    }
+  },
+  "myPages": {
+    "title": "My End Pages",
+    "empty": "You haven't created any end pages yet",
+    "createFirst": "Create your first end page",
+    "filterByTone": "Filter by tone",
+    "sortBy": "Sort by",
+    "sortOptions": {
+      "newest": "Newest first",
+      "oldest": "Oldest first",
+      "mostViewed": "Most viewed",
+      "mostComments": "Most comments",
+      "highestRated": "Highest rated"
+    },
+    "stats": {
+      "views": "{{count}} views",
+      "comments": "{{count}} comments",
+      "rating": "{{rating}} rating",
+      "created": "Created {{date}}"
+    }
   },
   "createPage": {
     "title": "Create Your End Page",
@@ -58,7 +100,17 @@
     "livePreview": "Live Preview",
     "savePublish": "Save & Publish",
     "titlePreview": "Your Title Will Appear Here",
-    "contentPreview": "Your content will appear here..."
+    "contentPreview": "Your content will appear here...",
+    "errors": {
+      "titleRequired": "Title is required",
+      "contentRequired": "Content is required",
+      "uploadFailed": "Failed to upload media",
+      "saveFailed": "Failed to save page"
+    },
+    "success": {
+      "saved": "Page saved successfully",
+      "published": "Page published successfully"
+    }
   },
   "tones": {
     "dramatic": "dramatic",
@@ -84,5 +136,33 @@
     "warning": "Your account will be deactivated if you run out of attempts. Please ensure you're using the correct credentials.",
     "accountDeactivated": "Account Deactivated",
     "contactSupport": "Please contact support to reactivate your account."
+  },
+  "errorPage": {
+    "title": "The End... of this Page",
+    "notFound": {
+      "title": "404 - A Lost Chapter",
+      "message": "This page has vanished into the digital afterlife...",
+      "description": "Like a forgotten memory, the page you're looking for seems to have faded away. Perhaps it was just a fleeting moment, or maybe it never existed at all."
+    },
+    "forbidden": {
+      "title": "403 - A Private Farewell",
+      "message": "This ending isn't yours to witness...",
+      "description": "Some goodbyes are meant to be private, shared only with chosen souls. This particular ending is reserved for others."
+    },
+    "serverError": {
+      "title": "500 - A Dramatic Plot Twist",
+      "message": "Our server had its own dramatic ending...",
+      "description": "Like an unexpected turn in life's story, our server took an unfortunate detour. Our digital healers are working to revive it."
+    },
+    "generic": {
+      "title": "An Unscripted Ending",
+      "message": "This story took an unexpected turn...",
+      "description": "Even in the best-written tales, sometimes things don't go as planned. We're working on getting this chapter back on track."
+    },
+    "actions": {
+      "goHome": "Return to the Beginning",
+      "tryAgain": "Rewrite this Moment",
+      "goBack": "Previous Chapter"
+    }
   }
 } 

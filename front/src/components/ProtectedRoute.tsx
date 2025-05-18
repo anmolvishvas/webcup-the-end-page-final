@@ -1,5 +1,6 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import ErrorPage from './ErrorPage';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -14,7 +15,9 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    // Create a 403 error for unauthorized access
+    const error = { status: 403 };
+    return <ErrorPage setShowScene={() => {}} />;
   }
 
   return <>{children}</>;

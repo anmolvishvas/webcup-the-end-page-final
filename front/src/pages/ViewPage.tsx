@@ -322,13 +322,6 @@ const ViewPage = ({ setShowScene }: ViewPageProps) => {
 
                   <div className="flex space-x-4">
                     <button
-                      onClick={() => setShowComments(!showComments)}
-                      className="flex items-center hover:text-white"
-                    >
-                      <MessageSquare className="mr-1 h-4 w-4" />
-                      {page.comments.length} Comments
-                    </button>
-                    <button
                       onClick={handleShare}
                       className="flex items-center hover:text-white"
                     >

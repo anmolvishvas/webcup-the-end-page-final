@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { EndPage, EndPagesCollection } from '../types';
 
-const API_URL = "http://localhost:8000/api";
+const API_URL = "https://localhost:8000/api";
 
 interface CreateEndPageRequest {
   user: string;
