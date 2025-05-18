@@ -1,0 +1,138 @@
+App\Entity\Comments:
+    comment_1:
+        author: 'Sarah Chen'
+        text: 'This beautifully captures the weight of that final moment. I was there too, holding my daughter''s hand as we watched the colors fade.'
+        end_page: '@end_page_1'
+        createdAt: '<dateTimeBetween("-3 months", "-2 months")>'
+
+    comment_2:
+        author: 'David Thompson'
+        text: 'Your description of the last sunset brought tears to my eyes. We really did take these daily miracles for granted.'
+        end_page: '@end_page_1'
+        createdAt: '<dateTimeBetween("-3 months", "-2 months")>'
+
+    comment_3:
+        author: 'Tech Support Tim'
+        text: 'Have you tried clearing the universal cache? That usually fixes these kinds of existence bugs.'
+        end_page: '@end_page_2'
+        createdAt: '<dateTimeBetween("-2 months", "-1 months")>'
+
+    comment_4:
+        author: 'Meme Lord 2000'
+        text: 'This is giving me major Y2K vibes, but like, on a cosmic scale 😂'
+        end_page: '@end_page_2'
+        createdAt: '<dateTimeBetween("-2 months", "-1 months")>'
+
+    comment_5:
+        author: 'Dancing Queen'
+        text: 'YASSSS! 💃 Serving apocalyptic realness! Can''t wait to try this challenge before the world ends!'
+        end_page: '@end_page_3'
+        createdAt: '<dateTimeBetween("-1 months", "now")>'
+
+    comment_6:
+        author: 'Lord Fancypants III'
+        text: 'Finally, someone addressing the real issues. I''ve been saying for years that apocalyptic fashion has been severely neglected.'
+        end_page: '@end_page_4'
+        createdAt: '<dateTimeBetween("-3 months", "-2 months")>'
+
+    comment_7:
+        author: 'Emily Watson'
+        text: 'This reminds me so much of my own grandmother. Thank you for sharing such a personal moment.'
+        end_page: '@end_page_5'
+        createdAt: '<dateTimeBetween("-2 months", "-1 months")>'
+
+    comment_8:
+        author: 'Snack Enthusiast'
+        text: 'But were they salt and vinegar cosmic chips? Those are worth ending the universe for.'
+        end_page: '@end_page_6'
+        createdAt: '<dateTimeBetween("-1 months", "now")>'
+
+    comment_9:
+        author: 'Green Warrior'
+        text: 'The sass in this post is exactly what we need. Been saying this for decades!'
+        end_page: '@end_page_7'
+        createdAt: '<dateTimeBetween("-2 months", "-1 months")>'
+
+    comment_10:
+        author: 'History Professor'
+        text: 'A sobering analysis. This should be required reading for whatever species evolves next.'
+        end_page: '@end_page_8'
+        createdAt: '<dateTimeBetween("-3 months", "-2 months")>'
+
+    comment_11:
+        author: 'Social Media Manager'
+        text: 'Please fill out our customer satisfaction survey about the end of existence. Your feedback matters!'
+        end_page: '@end_page_9'
+        createdAt: '<dateTimeBetween("-1 months", "now")>'
+
+    comment_12:
+        author: 'Chef in Crisis'
+        text: 'Could you clarify the measurement for tears of regret? Asking for a friend.'
+        end_page: '@end_page_10'
+        createdAt: '<dateTimeBetween("-2 months", "-1 months")>'
+
+    comment_13:
+        author: 'Chronos'
+        text: 'As Time itself, I am deeply moved by this letter. You humans always did have a way with words.'
+        end_page: '@end_page_11'
+        createdAt: '<dateTimeBetween("-3 months", "-2 months")>'
+
+    comment_14:
+        author: 'Karen from Accounting'
+        text: 'I demand to speak to the universe''s manager immediately!'
+        end_page: '@end_page_12'
+        createdAt: '<dateTimeBetween("-1 months", "now")>'
+
+    comment_15:
+        author: 'Hope Keeper'
+        text: 'This is exactly what humanity needed - a reminder of our capacity for unity in the face of adversity.'
+        end_page: '@end_page_13'
+        createdAt: '<dateTimeBetween("-2 months", "-1 months")>'
+
+    comment_16:
+        author: 'TV Critic Weekly'
+        text: 'Still a better ending than Game of Thrones.'
+        end_page: '@end_page_14'
+        createdAt: '<dateTimeBetween("-1 months", "now")>'
+
+    comment_17:
+        author: 'Dr. Science'
+        text: 'Peer review committee here. We''ll get back to you in... oh, wait.'
+        end_page: '@end_page_15'
+        createdAt: '<dateTimeBetween("-3 months", "-2 months")>'
+
+    comment_18:
+        author: 'Sunset Photographer'
+        text: 'The colors you described... I''ve been trying to capture that exact moment in my photos.'
+        end_page: '@end_page_1'
+        createdAt: '<dateTimeBetween("-3 months", "-2 months")>'
+
+    comment_19:
+        author: 'Debug Engineer'
+        text: 'Classic case of cosmic spaghetti code. Should have used a better version control system.'
+        end_page: '@end_page_2'
+        createdAt: '<dateTimeBetween("-2 months", "-1 months")>'
+
+    comment_20:
+        author: 'Etiquette Expert'
+        text: 'Excellent point about the Windsor knot. Though in case of nuclear winter, a half-Windsor is acceptable.'
+        end_page: '@end_page_4'
+        createdAt: '<dateTimeBetween("-3 months", "-2 months")>'
+
+    comment_21:
+        author: 'Time Traveler'
+        text: 'Reading this from the past. Should we start preparing now or...?'
+        end_page: '@end_page_8'
+        createdAt: '<dateTimeBetween("-3 months", "-2 months")>'
+
+    comment_22:
+        author: 'Universal IT'
+        text: 'Please submit a ticket for existence-related issues. Current response time: infinity.'
+        end_page: '@end_page_9'
+        createdAt: '<dateTimeBetween("-1 months", "now")>'
+
+    comment_23:
+        author: 'Journal Editor'
+        text: 'Manuscript accepted for publication in "The Final Journal of Everything".'
+        end_page: '@end_page_15'
+        createdAt: '<dateTimeBetween("-3 months", "-2 months")>' 

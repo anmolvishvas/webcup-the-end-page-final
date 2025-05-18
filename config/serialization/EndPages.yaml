@@ -1,0 +1,34 @@
+App\Entity\EndPages:
+    attributes:
+        id:
+            groups: ['endpage:read']
+        uuid:
+            groups: ['endpage:read']
+        user:
+            groups: ['endpage:read']
+        title:
+            groups: ['endpage:read']
+        content:
+            groups: ['endpage:read']
+        tone:
+            groups: ['endpage:read']
+        background_type:
+            groups: ['endpage:read']
+        background_value:
+            groups: ['endpage:read']
+        createdAt:
+            groups: ['endpage:read']
+        isPrivate:
+            groups: ['endpage:read']
+        totalRating:
+            groups: ['endpage:read']
+        numberOfVotes:
+            groups: ['endpage:read']
+        averageRating:
+            groups: ['endpage:read']
+        emails:
+            groups: ['endpage:read']
+        medias:
+            groups: ['endpage:read', 'media:read']
+        comments:
+            groups: ['endpage:read'] 

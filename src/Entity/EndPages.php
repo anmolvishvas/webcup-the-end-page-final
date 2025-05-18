@@ -102,6 +102,7 @@ class EndPages
 
     #[ORM\Column(options: ["default" => false])]
     #[Groups(['endpage:read'])]
+    #[ApiProperty(description: 'Whether the end page is private')]
     private bool $isPrivate = false;
 
     #[ORM\Column(type: Types::INTEGER, options: ["default" => 0])]
@@ -252,7 +253,7 @@ class EndPages
         return $this;
     }
 
-    public function isPrivate(): bool
+    public function getIsPrivate(): bool
     {
         return $this->isPrivate;
     }
@@ -268,9 +269,23 @@ class EndPages
         return $this->totalRating;
     }
 
+    public function setTotalRating(int $totalRating): static
+    {
+        $this->totalRating = $totalRating;
+        $this->updateAverageRating();
+        return $this;
+    }
+
     public function getNumberOfVotes(): int
     {
         return $this->numberOfVotes;
+    }
+
+    public function setNumberOfVotes(int $numberOfVotes): static
+    {
+        $this->numberOfVotes = $numberOfVotes;
+        $this->updateAverageRating();
+        return $this;
     }
 
     public function getAverageRating(): ?float

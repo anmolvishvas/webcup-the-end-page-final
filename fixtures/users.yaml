@@ -1,0 +1,99 @@
+App\Entity\Users:
+    admin_1:
+        email: 'john.smith@theendpage.com'
+        roles: ['ROLE_ADMIN']
+        password: 'admin123'
+        firstname: 'John'
+        lastname: 'Smith'
+        username: 'admin.smith'
+        isActive: true
+        createdAt: '<dateTimeBetween("-6 months", "-5 months")>'
+        count_attempt: 3
+
+    admin_2:
+        email: 'sarah.johnson@theendpage.com'
+        roles: ['ROLE_ADMIN']
+        password: 'admin456'
+        firstname: 'Sarah'
+        lastname: 'Johnson'
+        username: 'admin.johnson'
+        isActive: true
+        createdAt: '<dateTimeBetween("-6 months", "-5 months")>'
+        count_attempt: 3
+
+    jury_1:
+        email: 'michael.chen@theendpage.com'
+        roles: ['ROLE_WRITER']
+        password: 'writer123'
+        firstname: 'Michael'
+        lastname: 'Chen'
+        username: 'writer.chen'
+        isActive: true
+        createdAt: '<dateTimeBetween("-4 months", "-3 months")>'
+        count_attempt: 3
+
+    jury_2:
+        email: 'emma.garcia@theendpage.com'
+        roles: ['ROLE_WRITER']
+        password: 'writer456'
+        firstname: 'Emma'
+        lastname: 'Garcia'
+        username: 'writer.garcia'
+        isActive: true
+        createdAt: '<dateTimeBetween("-4 months", "-3 months")>'
+        count_attempt: 3
+
+    user_1:
+        email: 'david.wilson@gmail.com'
+        roles: ['ROLE_USER']
+        password: 'user123'
+        firstname: 'David'
+        lastname: 'Wilson'
+        username: 'david.wilson'
+        isActive: true
+        createdAt: '<dateTimeBetween("-2 months", "-1 months")>'
+        count_attempt: 3
+
+    user_2:
+        email: 'sophie.martin@outlook.com'
+        roles: ['ROLE_USER']
+        password: 'user456'
+        firstname: 'Sophie'
+        lastname: 'Martin'
+        username: 'sophie.martin'
+        isActive: true
+        createdAt: '<dateTimeBetween("-2 months", "-1 months")>'
+        count_attempt: 3
+
+    user_3:
+        email: 'lucas.bernard@yahoo.com'
+        roles: ['ROLE_USER']
+        password: 'user789'
+        firstname: 'Lucas'
+        lastname: 'Bernard'
+        username: 'lucas.bernard'
+        isActive: true
+        createdAt: '<dateTimeBetween("-1 months", "now")>'
+        count_attempt: 3
+
+    user_4:
+        email: 'olivia.brown@gmail.com'
+        roles: ['ROLE_USER']
+        password: 'user101'
+        firstname: 'Olivia'
+        lastname: 'Brown'
+        username: 'olivia.brown'
+        isActive: true
+        createdAt: '<dateTimeBetween("-1 months", "now")>'
+        count_attempt: 3
+
+    employer_1:
+        email: 'ayushvishvas@gmail.com'
+        roles: ['ROLE_EMPLOYER']
+        password: 'Ayush2610'
+        firstname: 'Ayush'
+        lastname: 'Vishvas'
+        username: 'ayush.vishvas'
+        isActive: true
+        createdAt: '<dateTimeBetween("-1 months", "now")>'
+        count_attempt: 3 

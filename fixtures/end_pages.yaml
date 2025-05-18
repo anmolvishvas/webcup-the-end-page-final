@@ -1,0 +1,210 @@
+App\Entity\EndPages:
+    end_page_1:
+        title: 'The Last Sunset on Earth'
+        content: |
+            As the final rays of sunlight painted the sky in breathtaking hues of crimson and gold, humanity gathered to witness the last sunset Earth would ever see. The atmosphere had finally thinned to the point where our star''s farewell would be permanently obscured. Scientists had predicted this day, but nothing could prepare us for the emotional weight of this moment. Children pointed at the fading colors while elderly couples held hands, sharing silent tears. This wasn''t just the end of a day - it was the end of an era that had defined life on Earth since its beginning.
+        tone: !php/const App\Enum\Tone::Dramatic
+        background_type: 'image'
+        background_value: 'sunset_finale.jpg'
+        isPrivate: false
+        user: '@user_1'
+        createdAt: '<dateTimeBetween("-3 months", "-2 months")>'
+        totalRating: 45
+        numberOfVotes: 9
+        emails: ['sunset_watcher@earth.com', 'final_light@cosmos.net']
+
+    end_page_2:
+        title: 'Error 404: Universe Not Found'
+        content: |
+            In a shocking turn of events, the universe seems to have misplaced itself. System administrators are frantically searching through cosmic databases, but all they keep finding are cat videos and memes from 2012. The tech support team at the Universal Help Desk suggests turning the universe off and on again, but nobody can find the power button. Meanwhile, existence continues in a sort of awkward limbo, unsure whether to crash completely or just keep running on outdated drivers.
+        tone: !php/const App\Enum\Tone::Ironic
+        background_type: 'color'
+        background_value: '#404404'
+        isPrivate: false
+        user: '@user_2'
+        createdAt: '<dateTimeBetween("-2 months", "-1 months")>'
+        totalRating: 38
+        numberOfVotes: 8
+        emails: null
+
+    end_page_3:
+        title: 'The Last TikTok Dance'
+        content: |
+            OMG guys! 😱 Can you believe we''re literally doing the last dance trend EVER?! 💃 Like, the world is ending and we''re here making it totally viral! #LastDanceChallenge is trending and everyone''s doing this super cringe choreography where you pretend to dodge meteors while doing the floss! Even the aliens watching us are probably dying of secondhand embarrassment! But who cares? We''re going out in style! Don''t forget to like and subscribe... to the void! 🕳️✨
+        tone: !php/const App\Enum\Tone::UltraCringe
+        background_type: 'video'
+        background_value: 'final_dance.mp4'
+        isPrivate: false
+        user: '@user_3'
+        createdAt: '<dateTimeBetween("-1 months", "now")>'
+        totalRating: 25
+        numberOfVotes: 10
+        emails: null
+
+    end_page_4:
+        title: 'A Gentleman''s Guide to the Apocalypse'
+        content: |
+            One must maintain proper decorum even in the face of oblivion. When greeting the Four Horsemen, a firm handshake and direct eye contact are essential. Do remember to pair your hazmat suit with appropriate formal wear - a well-tied Windsor knot can make all the difference when facing eternal darkness. And please, for the love of all that''s proper, use the correct fork when consuming your last meal.
+        tone: !php/const App\Enum\Tone::Classy
+        background_type: 'color'
+        background_value: '#1A1A1A'
+        isPrivate: false
+        user: '@jury_1'
+        createdAt: '<dateTimeBetween("-3 months", "-2 months")>'
+        totalRating: 50
+        numberOfVotes: 10
+        emails: null
+
+    end_page_5:
+        title: 'The Last Goodbye'
+        content: |
+            Today I held my grandmother''s hand for the last time. As the world around us prepared for its final moments, she shared stories of her youth, of times when the future seemed endless. We looked through old photo albums, laughing and crying at memories frozen in time. "What a wonderful adventure it''s been," she whispered, squeezing my hand. In this moment, I understood that even at the end, love remains our greatest legacy.
+        tone: !php/const App\Enum\Tone::Touching
+        background_type: 'image'
+        background_value: 'memories.jpg'
+        isPrivate: true
+        user: '@user_4'
+        createdAt: '<dateTimeBetween("-2 months", "-1 months")>'
+        totalRating: 48
+        numberOfVotes: 10
+        emails: ['family@lastmoments.com']
+
+    end_page_6:
+        title: 'The Cosmic Vending Machine Incident'
+        content: |
+            The universe ended because someone put a fork in the cosmic vending machine. Yes, you read that right. All of existence, billions of years of evolution, countless civilizations, and it all came down to someone trying to get a free bag of cosmic chips. The machine sparked, reality hiccupped, and now we''re all floating in a sea of expired snack foods. The irony? The chips weren''t even that good.
+        tone: !php/const App\Enum\Tone::Absurd
+        background_type: 'color'
+        background_value: '#FF00FF'
+        isPrivate: false
+        user: '@user_1'
+        createdAt: '<dateTimeBetween("-1 months", "now")>'
+        totalRating: 35
+        numberOfVotes: 7
+        emails: null
+
+    end_page_7:
+        title: 'Oh, So NOW You Want to Save the Planet?'
+        content: |
+            Isn''t it just delightful how everyone suddenly becomes an environmental expert when the atmosphere is literally disappearing? I mean, I''ve only been recycling and composting for the past 30 years, but please, tell me more about your emergency plan to fix everything with your newly purchased metal straw. I''m sure that''ll reverse the collapse of the ecosystem. But hey, at least your last Instagram post about saving the Earth got 100 likes!
+        tone: !php/const App\Enum\Tone::PassiveAggressive
+        background_type: 'image'
+        background_value: 'dying_earth.jpg'
+        isPrivate: false
+        user: '@jury_2'
+        createdAt: '<dateTimeBetween("-2 months", "-1 months")>'
+        totalRating: 42
+        numberOfVotes: 9
+        emails: null
+
+    end_page_8:
+        title: 'The Truth About Our End'
+        content: |
+            We knew this was coming. The signs were there - in the data, in the changes we observed, in the warnings we ignored. This isn''t a sudden catastrophe or an unexpected event. This is the culmination of choices made over generations. As I write this final record, I want to be clear: we had the power to prevent this. Let this be a lesson for whatever comes after us.
+        tone: !php/const App\Enum\Tone::Honest
+        background_type: 'video'
+        background_value: 'truth_documentary.mp4'
+        isPrivate: false
+        user: '@jury_1'
+        createdAt: '<dateTimeBetween("-3 months", "-2 months")>'
+        totalRating: 47
+        numberOfVotes: 10
+        emails: ['historian@lastarchive.org']
+
+    end_page_9:
+        title: 'The Final Social Media Update'
+        content: |
+            Status: Experiencing technical difficulties with reality. Have tried turning the universe off and on again. #EndTimes #TechnicalDifficulties #UniversalBugFix. Please note that due to the collapse of existence, customer service response times may be longer than usual. We appreciate your patience during this apocalyptic transition.
+        tone: !php/const App\Enum\Tone::Ironic
+        background_type: 'color'
+        background_value: '#0000FF'
+        isPrivate: false
+        user: '@user_2'
+        createdAt: '<dateTimeBetween("-1 months", "now")>'
+        totalRating: 30
+        numberOfVotes: 6
+        emails: null
+
+    end_page_10:
+        title: 'The Last Recipe Ever Written'
+        content: |
+            Recipe for End Times Comfort Soup: Gather whatever ingredients remain in your bunker. Add the last can of something that might be beans. Season with tears of regret. Simmer until the heat death of the universe. Serves: However many survivors you can find. Note: Taste is irrelevant when it''s literally the last meal you''ll ever have. Bon appétit!
+        tone: !php/const App\Enum\Tone::Absurd
+        background_type: 'image'
+        background_value: 'last_meal.jpg'
+        isPrivate: false
+        user: '@user_3'
+        createdAt: '<dateTimeBetween("-2 months", "-1 months")>'
+        totalRating: 33
+        numberOfVotes: 7
+        emails: null
+
+    end_page_11:
+        title: 'A Love Letter to Time'
+        content: |
+            Dear Time, I never thought you''d actually run out. We had our moments - sometimes you moved too fast, sometimes too slow. Remember those endless summer days? The nights that passed in a blink? I took you for granted, assumed you''d always be there. Now that you''re ending, I realize what a gift you were. Thank you for every second, even the ones I wasted. Yours eternally (or what''s left of it).
+        tone: !php/const App\Enum\Tone::Touching
+        background_type: 'video'
+        background_value: 'time_lapse.mp4'
+        isPrivate: true
+        user: '@jury_2'
+        createdAt: '<dateTimeBetween("-3 months", "-2 months")>'
+        totalRating: 49
+        numberOfVotes: 10
+        emails: ['timekeeper@lastmoment.com']
+
+    end_page_12:
+        title: 'The Final Customer Service Call'
+        content: |
+            Thank you for calling Universe Support. All our representatives are currently busy dealing with the apocalypse. Your existence is important to us. Please hold while reality crumbles. Current wait time: Eternal. This call may be recorded for training purposes in the next universe. For faster service, please try ceasing to exist and calling back never.
+        tone: !php/const App\Enum\Tone::PassiveAggressive
+        background_type: 'color'
+        background_value: '#FF0000'
+        isPrivate: false
+        user: '@user_4'
+        createdAt: '<dateTimeBetween("-1 months", "now")>'
+        totalRating: 28
+        numberOfVotes: 6
+        emails: null
+
+    end_page_13:
+        title: 'The Last Stand of Humanity'
+        content: |
+            As the final battle approached, humanity united not in fear, but in determination. Scientists worked alongside artists, soldiers beside healers. We faced our end not with resignation but with dignity. The last great act of our species wasn''t a war or a surrender - it was a celebration of everything we had achieved, everything we had been. In our final hours, we proved that our greatest strength was never our technology or our weapons, but our ability to stand together.
+        tone: !php/const App\Enum\Tone::Dramatic
+        background_type: 'video'
+        background_value: 'unity_montage.mp4'
+        isPrivate: false
+        user: '@jury_1'
+        createdAt: '<dateTimeBetween("-2 months", "-1 months")>'
+        totalRating: 46
+        numberOfVotes: 10
+        emails: ['unity@laststand.org']
+
+    end_page_14:
+        title: 'The Ultimate Plot Twist'
+        content: |
+            BREAKING NEWS: Reality itself has filed for creative bankruptcy! Citing "lack of original content" and "too many predictable apocalypses," the universe has decided to end its long-running series "Existence" on a cliffhanger. Critics are calling it "literally the end of everything" and "a bit dramatic, honestly." Stay tuned for the ultimate series finale! (Spoiler alert: Everyone dies, but in an artsy way).
+        tone: !php/const App\Enum\Tone::UltraCringe
+        background_type: 'image'
+        background_value: 'plot_twist.jpg'
+        isPrivate: false
+        user: '@user_1'
+        createdAt: '<dateTimeBetween("-1 months", "now")>'
+        totalRating: 32
+        numberOfVotes: 8
+        emails: null
+
+    end_page_15:
+        title: 'The Final Scientific Paper'
+        content: |
+            Abstract: This paper presents conclusive evidence that the end of existence was, in fact, inevitable. Methodology included observing reality''s gradual dissolution and consulting various interdimensional entities. Results show a 100% probability of universal cessation. Conclusion: We really should have seen this coming. Peer review pending (indefinitely).
+        tone: !php/const App\Enum\Tone::Honest
+        background_type: 'color'
+        background_value: '#FFFFFF'
+        isPrivate: false
+        user: '@jury_2'
+        createdAt: '<dateTimeBetween("-3 months", "-2 months")>'
+        totalRating: 44
+        numberOfVotes: 9
+        emails: ['science@lastjournal.edu'] 
