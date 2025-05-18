@@ -1,0 +1,32 @@
+parameters:
+    uploads_directory: '%kernel.project_dir%/public/uploads/media'
+
+services:
+  _defaults:
+    autowire: true # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+  App\:
+    resource: "../src/"
+    exclude:
+      - "../src/DependencyInjection/"
+      - "../src/Entity/"
+      - "../src/Kernel.php"
+  App\Controller\Api\AuthController:
+    autowire: true
+    autoconfigure: true
+    public: true
+    arguments:
+      $fileUploader: '@App\Service\FileUploader'
+
+    App\Service\FileUploader:
+        arguments:
+            $targetDirectory: '%kernel.project_dir%/public/uploads'
+
+    App\State\Processor\EndPageProcessor:
+        arguments:
+            $persistProcessor: '@api_platform.doctrine.orm.state.persist_processor'
+
+    App\State\Provider\EndPageProvider:
+        arguments:
+            $itemProvider: '@api_platform.doctrine.orm.state.item_provider'
