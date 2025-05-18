@@ -1,0 +1,64 @@
+import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import CreatePage from './pages/CreatePage';
+import ViewPage from './pages/ViewPage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import MyPagesPage from './pages/MyPagesPage';
+import Header from './components/Header';
+import ProtectedRoute from './components/ProtectedRoute';
+import { EndPageProvider } from './context/EndPageContext';
+import { AuthProvider } from './context/AuthContext';
+import BackgroundScene from './components/three/BackgroundScene';
+
+function App() {
+  const [showScene, setShowScene] = useState(true);
+
+  return (
+    <AuthProvider>
+      <EndPageProvider>
+        <Router>
+          <div className="min-h-screen flex flex-col">
+            {showScene && <BackgroundScene />}
+            <Header />
+            <main className="flex-grow">
+              <Routes>
+                <Route path="/" element={<HomePage setShowScene={setShowScene} />} />
+                <Route path="/login" element={<LoginPage setShowScene={setShowScene} />} />
+                <Route path="/register" element={<RegisterPage setShowScene={setShowScene} />} />
+                <Route 
+                  path="/create" 
+                  element={
+                    <ProtectedRoute>
+                      <CreatePage setShowScene={setShowScene} />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/view/:id" 
+                  element={
+                    <ProtectedRoute>
+                      <ViewPage setShowScene={setShowScene} />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/my-pages" 
+                  element={
+                    <ProtectedRoute>
+                      <MyPagesPage setShowScene={setShowScene} />
+                    </ProtectedRoute>
+                  } 
+                />
+              </Routes>
+            </main>
+          </div>
+        </Router>
+      </EndPageProvider>
+    </AuthProvider>
+  );
+}
+
+export default App;
+ 

@@ -1,0 +1,226 @@
+@tailwind  base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-primary text-white font-sans antialiased;
+  background-image: radial-gradient(circle at center, #1a1a2e, #16213e);
+}
+
+.gradient-text {
+  @apply text-transparent bg-clip-text bg-gradient-to-r from-secondary to-secondary-light;
+}
+
+.scene-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Tone styles */
+.dramatic {
+  @apply bg-gradient-to-br from-gray-900 to-black;
+}
+
+.ironic {
+  @apply bg-gradient-to-br from-purple-900 to-indigo-900;
+}
+
+.absurd {
+  @apply bg-gradient-to-br from-pink-700 to-orange-700;
+}
+
+.honest {
+  @apply bg-gradient-to-br from-blue-900 to-teal-900;
+}
+
+.passive-aggressive {
+  @apply bg-gradient-to-br from-red-900 to-yellow-900;
+}
+
+.ultra-cringe {
+  @apply bg-gradient-to-br from-pink-600 to-purple-600;
+}
+
+.classe {
+  @apply bg-gradient-to-br from-slate-900 to-zinc-900;
+}
+
+.touchant {
+  @apply bg-gradient-to-br from-blue-800 to-cyan-900;
+}
+
+.dropzone {
+  @apply border-2 border-dashed border-gray-500 rounded-lg p-4 flex flex-col justify-center items-center h-32 cursor-pointer transition-colors;
+}
+
+.dropzone:hover, .dropzone.active {
+  @apply border-secondary-light bg-primary-light/30;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes drift {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(10px, 5px); }
+  100% { transform: translate(0, 0); }
+}
+
+.drift-animation {
+  animation: drift 15s infinite ease-in-out;
+}
+
+/* Book/Diary styles */
+.book {
+  @apply shadow-2xl;
+  background-color: #2d2d44;
+  transition: box-shadow 0.3s ease;
+}
+
+.book:hover {
+  @apply shadow-2xl;
+}
+
+.page {
+  @apply bg-stone-100 text-gray-900 px-8 py-6;
+  background-size: cover;
+  border-radius: 0 4px 4px 0;
+  box-shadow: inset -1px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.page-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.page.dramatic {
+  background-image: url('https://images.unsplash.com/photo-1574758186974-1515fa8b231d');
+  background-size: cover;
+}
+
+.page.ironic {
+  background-image: url('https://images.unsplash.com/photo-1647559709189-a257be60e147');
+  background-size: cover;
+}
+
+.page.absurd {
+  background-image: url('https://images.unsplash.com/photo-1647559708136-f79b13831d28');
+  background-size: cover;
+}
+
+.page.honest {
+  background-image: url('https://images.unsplash.com/photo-1647559708814-2749efff5ddf');
+  background-size: cover;
+}
+
+.page.passive-aggressive {
+  background-image: url('https://images.unsplash.com/photo-1574758186974-1515fa8b231d');
+  filter: sepia(0.3);
+  background-size: cover;
+}
+
+.page.ultra-cringe {
+  background-image: url('https://images.unsplash.com/photo-1517487881594-2787fef5ebf7');
+  background-size: cover;
+}
+
+.page.classe {
+  background-image: url('https://images.unsplash.com/photo-1507915135761-41a0a222c709');
+  background-size: cover;
+}
+
+.page.touchant {
+  background-image: url('https://images.unsplash.com/photo-1516585427167-9f4af9627e6c');
+  background-size: cover;
+}
+
+.page-overlay {
+  @apply bg-white/80 p-4 rounded-lg backdrop-blur-sm h-full overflow-y-auto;
+}
+
+.stf__parent {
+  @apply rounded-lg overflow-hidden max-w-full;
+}
+
+.gif-grid {
+  @apply grid grid-cols-2 sm:grid-cols-3 gap-2 mt-4 max-h-64 overflow-y-auto;
+}
+
+.gif-item {
+  @apply cursor-pointer rounded-md overflow-hidden transition-all hover:ring-2 hover:ring-secondary;
+}
+
+.gif-item.selected {
+  @apply ring-2 ring-secondary;
+}
+
+.audio-footer {
+  @apply bg-white/80 backdrop-blur-sm rounded-b-lg px-4 py-2 mt-auto;
+}
+
+/* For the book flipping effect */
+.shadow-left {
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.shadow-right {
+  box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.gif-search-container {
+  @apply bg-white/90 backdrop-blur-sm p-4 rounded-lg transition-all;
+}
+
+@keyframes floatEmoji {
+  0% {
+    transform: translateX(-10vw) translateY(0);
+  }
+  50% {
+    transform: translateX(10vw) translateY(-20px);
+  }
+  100% {
+    transform: translateX(-10vw) translateY(0);
+  }
+}
+
+.floating-emoji {
+  @apply fixed text-8xl pointer-events-none opacity-30;
+  animation: floatEmoji 8s infinite ease-in-out;
+}
+
+.floating-emoji:nth-child(2) {
+  animation-delay: -2s;
+  animation-duration: 9s;
+}
+
+.floating-emoji:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 10s;
+}
+
+.floating-emoji:nth-child(4) {
+  animation-delay: -6s;
+  animation-duration: 11s;
+}
+ 

@@ -1,0 +1,76 @@
+{
+  "header": {
+    "create": "Créer une page",
+    "myPages": "Mes pages",
+    "login": "Se connecter",
+    "logout": "Déconnexion"
+  },
+  "language": {
+    "toggle": "Changer de langue",
+    "en": "English",
+    "fr": "Français"
+  },
+  "loginPage": {
+    "title": "Connexion",
+    "email": "Adresse e-mail",
+    "emailPlaceholder": "Entrez votre e-mail",
+    "password": "Mot de passe",
+    "passwordPlaceholder": "Entrez votre mot de passe",
+    "loginButton": "Se connecter",
+    "registerPrompt": "Pas encore de compte ?",
+    "registerLink": "S'inscrire",
+    "error": "E-mail ou mot de passe invalide"
+  },
+  "createPage": {
+    "title": "Créez Votre Page Finale",
+    "titleLabel": "Donnez un Titre à Vos Adieux",
+    "titlePlaceholder": "Mon Dernier Chapitre...",
+    "messageLabel": "Votre Message",
+    "messagePlaceholder": "Partagez vos pensées, sentiments ou derniers mots...",
+    "toneLabel": "Choisissez Votre Ton",
+    "backgroundLabel": "Image de Fond",
+    "backgrounds": {
+      "dramaticStorm": "Orage Dramatique",
+      "airportTerminal": "Terminal d'Aéroport",
+      "farewellHug": "Câlin d'Adieu",
+      "distantFigure": "Figure Lointaine",
+      "mistyMountains": "Montagnes Brumeuses",
+      "goldenField": "Champ Doré",
+      "cringeMoment": "Moment Gênant",
+      "elegantScene": "Scène Élégante",
+      "touchingMemory": "Souvenir Touchant"
+    },
+    "mediaLabel": "Ajoutez des Images & Vidéos",
+    "dropzoneImages": "Déposez des images ici ou cliquez pour télécharger",
+    "dropzoneVideos": "Déposez des vidéos ici ou cliquez pour télécharger (max 10MB)",
+    "gifLabel": "Ajoutez des GIFs",
+    "searchGifs": "Rechercher des GIFs",
+    "closeGifs": "Fermer",
+    "musicLabel": "Ajoutez de la Musique (Optionnel)",
+    "dropzoneMusic": "Déposez un fichier audio ici ou cliquez pour télécharger",
+    "musicAdded": "Musique de fond ajoutée",
+    "preview": "Aperçu",
+    "edit": "Modifier",
+    "previewAsDiary": "Aperçu comme Journal",
+    "livePreview": "Aperçu en Direct",
+    "savePublish": "Sauvegarder & Publier",
+    "titlePreview": "Votre Titre Apparaîtra Ici",
+    "contentPreview": "Votre contenu apparaîtra ici..."
+  },
+  "tones": {
+    "dramatic": "dramatique",
+    "ironic": "ironique",
+    "absurd": "absurde",
+    "honest": "honnête",
+    "passive-aggressive": "passif-agressif",
+    "ultra-cringe": "ultra-gênant",
+    "classe": "classe",
+    "touchant": "touchant"
+  },
+  "warnings": {
+    "profanity": "Contient un langage inapproprié : \"{{word}}\"",
+    "harassment": "Contenu potentiellement harcelant : \"{{word}}\"",
+    "threats": "Contenu potentiellement menaçant : \"{{word}}\"",
+    "discrimination": "Contenu potentiellement discriminatoire : \"{{word}}\""
+  }
+} 

@@ -1,0 +1,83 @@
+{
+  "header": {
+    "create": "Create Page",
+    "myPages": "My Pages",
+    "login": "Login",
+    "logout": "Logout"
+  },
+  "language": {
+    "toggle": "Change language",
+    "en": "English",
+    "fr": "Français"
+  },
+  "loginPage": {
+    "title": "Login",
+    "email": "Email address",
+    "emailPlaceholder": "Enter your email",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "loginButton": "Login",
+    "registerPrompt": "Don't have an account?",
+    "registerLink": "Register",
+    "error": "Invalid email or password"
+  },
+  "createPage": {
+    "title": "Create Your End Page",
+    "titleLabel": "Title Your Goodbye",
+    "titlePlaceholder": "My Final Chapter...",
+    "messageLabel": "Your Message",
+    "messagePlaceholder": "Share your thoughts, feelings, or final words...",
+    "toneLabel": "Choose Your Tone",
+    "backgroundLabel": "Background Image",
+    "backgrounds": {
+      "dramaticStorm": "Dramatic Storm",
+      "airportTerminal": "Airport Terminal",
+      "farewellHug": "Farewell Hug",
+      "distantFigure": "Distant Figure",
+      "mistyMountains": "Misty Mountains",
+      "goldenField": "Golden Field",
+      "cringeMoment": "Cringe Moment",
+      "elegantScene": "Elegant Scene",
+      "touchingMemory": "Touching Memory"
+    },
+    "mediaLabel": "Add Images & Videos",
+    "dropzoneImages": "Drag images here or click to upload",
+    "dropzoneVideos": "Drag videos here or click to upload (max 10MB)",
+    "gifLabel": "Add GIFs",
+    "searchGifs": "Search GIFs",
+    "closeGifs": "Close",
+    "musicLabel": "Add Music (Optional)",
+    "dropzoneMusic": "Drag audio file here or click to upload",
+    "musicAdded": "Background music added",
+    "preview": "Preview",
+    "edit": "Edit",
+    "previewAsDiary": "Preview as Diary",
+    "livePreview": "Live Preview",
+    "savePublish": "Save & Publish",
+    "titlePreview": "Your Title Will Appear Here",
+    "contentPreview": "Your content will appear here..."
+  },
+  "tones": {
+    "dramatic": "dramatic",
+    "ironic": "ironic",
+    "absurd": "absurd",
+    "honest": "honest",
+    "passive-aggressive": "passive-aggressive",
+    "ultra-cringe": "ultra-cringe",
+    "classe": "classy",
+    "touchant": "touching"
+  },
+  "warnings": {
+    "profanity": "Contains inappropriate language: \"{{word}}\"",
+    "harassment": "Potentially harassing content: \"{{word}}\"",
+    "threats": "Potentially threatening content: \"{{word}}\"",
+    "discrimination": "Potentially discriminatory content: \"{{word}}\""
+  },
+  "attempts": {
+    "warningTitle": "Warning: Attempt Lost",
+    "lostOneAttempt": "You have lost one attempt due to inappropriate content.",
+    "remainingAttempts": "You have {{count}} attempts remaining.",
+    "remainingAttempts_one": "You have {{count}} attempt remaining.",
+    "warning": "Please be mindful of our content guidelines. If you run out of attempts, you will need to contact support."
+  }
+} 
