@@ -19,7 +19,10 @@
     "loginButton": "Login",
     "registerPrompt": "Don't have an account?",
     "registerLink": "Register",
-    "error": "Invalid email or password"
+    "error": "Invalid email or password",
+    "accountDeactivated": "Account deactivated due to too many failed attempts. Please contact support.",
+    "noAttemptsLeft": "No login attempts remaining. Your account will be deactivated.",
+    "attemptsRemaining": "{{count}} attempts remaining before account deactivation."
   },
   "createPage": {
     "title": "Create Your End Page",
@@ -74,10 +77,12 @@
     "discrimination": "Potentially discriminatory content: \"{{word}}\""
   },
   "attempts": {
-    "warningTitle": "Warning: Attempt Lost",
-    "lostOneAttempt": "You have lost one attempt due to inappropriate content.",
-    "remainingAttempts": "You have {{count}} attempts remaining.",
-    "remainingAttempts_one": "You have {{count}} attempt remaining.",
-    "warning": "Please be mindful of our content guidelines. If you run out of attempts, you will need to contact support."
+    "warningTitle": "Login Attempt Failed",
+    "lostOneAttempt": "Invalid credentials. Your login attempt was unsuccessful.",
+    "remainingAttempts": "You have {{count}} attempts remaining",
+    "remainingAttempts_one": "You have {{count}} attempt remaining",
+    "warning": "Your account will be deactivated if you run out of attempts. Please ensure you're using the correct credentials.",
+    "accountDeactivated": "Account Deactivated",
+    "contactSupport": "Please contact support to reactivate your account."
   }
 } 

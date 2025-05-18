@@ -5,9 +5,15 @@ interface AttemptsWarningModalProps {
   isOpen: boolean;
   onClose: () => void;
   attemptsLeft: number;
+  isDeactivated?: boolean;
 }
 
-const AttemptsWarningModal = ({ isOpen, onClose, attemptsLeft }: AttemptsWarningModalProps) => {
+const AttemptsWarningModal: React.FC<AttemptsWarningModalProps> = ({
+  isOpen,
+  onClose,
+  attemptsLeft,
+  isDeactivated = false
+}) => {
   const { t } = useTranslation();
 
   if (!isOpen) return null;
@@ -24,19 +30,30 @@ const AttemptsWarningModal = ({ isOpen, onClose, attemptsLeft }: AttemptsWarning
         </button>
         
         <h2 className="text-2xl font-serif mb-4 text-red-500">
-          {t("attempts.warningTitle")}
+          {isDeactivated 
+            ? t("attempts.accountDeactivated")
+            : t("attempts.warningTitle")
+          }
         </h2>
         
         <p className="text-white/90 mb-4">
           {t("attempts.lostOneAttempt")}
         </p>
 
-        <p className="text-white/90 mb-6">
-          {t("attempts.remainingAttempts", { count: attemptsLeft })}
-        </p>
+        {!isDeactivated && (
+          <p className="text-white/90 mb-6">
+            {attemptsLeft === 1
+              ? t("attempts.remainingAttempts_one", { count: attemptsLeft })
+              : t("attempts.remainingAttempts", { count: attemptsLeft })
+            }
+          </p>
+        )}
 
         <div className="text-white/70 text-sm">
-          {t("attempts.warning")}
+          {isDeactivated 
+            ? t("attempts.contactSupport")
+            : t("attempts.warning")
+          }
         </div>
       </div>
     </div>

@@ -30,9 +30,42 @@ class LoginController extends AbstractController
 
         $user = $em->getRepository(Users::class)->findOneBy(['email' => $email]);
 
-        if (!$user || !$passwordHasher->isPasswordValid($user, $password)) {
+        if (!$user) {
             return new JsonResponse(['error' => 'Invalid credentials.'], 401);
         }
+
+        // Check if account is active
+        if (!$user->isActive()) {
+            return new JsonResponse([
+                'error' => 'Account is deactivated due to too many failed attempts. Please contact support.',
+                'is_active' => false
+            ], 401);
+        }
+
+        // Check if user has attempts left
+        if (!$user->hasAttemptsLeft()) {
+            return new JsonResponse([
+                'error' => 'No login attempts remaining. Account will be deactivated.',
+                'attempts_left' => 0
+            ], 401);
+        }
+
+        // Verify password
+        if (!$passwordHasher->isPasswordValid($user, $password)) {
+            // Decrement attempts and save
+            $user->decrementCountAttempt();
+            $em->flush();
+
+            return new JsonResponse([
+                'error' => 'Invalid credentials.',
+                'attempts_left' => $user->getCountAttempt(),
+                'is_active' => $user->isActive()
+            ], 401);
+        }
+
+        // Successful login - reset attempts
+        $user->resetCountAttempt();
+        $em->flush();
 
         $token = $jwtManager->create($user);
 
@@ -44,6 +77,8 @@ class LoginController extends AbstractController
                 'lastname' => $user->getLastname(),
                 'email' => $user->getEmail(),
                 'roles' => $user->getRoles(),
+                'is_active' => $user->isActive(),
+                'attempts_left' => $user->getCountAttempt()
             ],
         ]);
     }

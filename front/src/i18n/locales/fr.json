@@ -19,7 +19,19 @@
     "loginButton": "Se connecter",
     "registerPrompt": "Pas encore de compte ?",
     "registerLink": "S'inscrire",
-    "error": "E-mail ou mot de passe invalide"
+    "error": "E-mail ou mot de passe invalide",
+    "accountDeactivated": "Compte désactivé en raison de trop nombreuses tentatives échouées. Veuillez contacter le support.",
+    "noAttemptsLeft": "Plus de tentatives de connexion restantes. Votre compte va être désactivé.",
+    "attemptsRemaining": "{{count}} tentatives restantes avant la désactivation du compte."
+  },
+  "attempts": {
+    "warningTitle": "Échec de la Tentative de Connexion",
+    "lostOneAttempt": "Identifiants invalides. Votre tentative de connexion a échoué.",
+    "remainingAttempts": "Il vous reste {{count}} tentatives",
+    "remainingAttempts_one": "Il vous reste {{count}} tentative",
+    "warning": "Votre compte sera désactivé si vous épuisez vos tentatives. Assurez-vous d'utiliser les bons identifiants.",
+    "accountDeactivated": "Compte Désactivé",
+    "contactSupport": "Veuillez contacter le support pour réactiver votre compte."
   },
   "createPage": {
     "title": "Créez Votre Page Finale",

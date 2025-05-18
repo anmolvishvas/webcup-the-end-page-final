@@ -229,6 +229,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->count_attempt > 0) {
             $this->count_attempt--;
+            if ($this->count_attempt === 0) {
+                $this->isActive = false;
+            }
         }
         return $this;
     }
