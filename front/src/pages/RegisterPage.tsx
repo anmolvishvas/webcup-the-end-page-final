@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { UserPlus, Mail, Lock, User } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
+import { useTranslation } from "react-i18next";
 
 interface RegisterPageProps {
   setShowScene: (show: boolean) => void;
@@ -11,6 +12,7 @@ interface RegisterPageProps {
 const RegisterPage = ({ setShowScene }: RegisterPageProps) => {
   const navigate = useNavigate();
   const { register, isAuthenticated } = useAuth();
+  const { t } = useTranslation();
 
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
@@ -32,7 +34,7 @@ const RegisterPage = ({ setShowScene }: RegisterPageProps) => {
     e.preventDefault();
 
     if (!firstname || !lastname || !username || !email || !password) {
-      setError("Veuillez remplir tous les champs");
+      setError(t('registerPage.errors.emptyFields'));
       return;
     }
 
@@ -46,9 +48,9 @@ const RegisterPage = ({ setShowScene }: RegisterPageProps) => {
       setError(
         err instanceof Error
           ? err.message === "Email already exists"
-            ? "Cet email existe déjà"
+            ? t('registerPage.errors.emailExists')
             : err.message
-          : "Échec de l'inscription"
+          : t('registerPage.errors.registrationFailed')
       );
     } finally {
       setIsLoading(false);
@@ -65,10 +67,10 @@ const RegisterPage = ({ setShowScene }: RegisterPageProps) => {
       >
         <div className="text-center mb-8">
           <h1 className="text-3xl font-serif font-bold mb-2">
-            Créer un compte
+            {t('registerPage.title')}
           </h1>
           <p className="text-gray-400">
-            Rejoignez notre communauté et commencez à partager
+            {t('registerPage.subtitle')}
           </p>
         </div>
 
@@ -82,7 +84,7 @@ const RegisterPage = ({ setShowScene }: RegisterPageProps) => {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label htmlFor="firstname" className="block mb-2 text-sm font-medium">
-                Prénom
+                {t('registerPage.firstNameLabel')}
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -94,14 +96,14 @@ const RegisterPage = ({ setShowScene }: RegisterPageProps) => {
                   value={firstname}
                   onChange={(e) => setFirstname(e.target.value)}
                   className="block w-full pl-10 p-3 bg-primary-light rounded-md border border-gray-700 focus:border-secondary focus:outline-none"
-                  placeholder="Jean"
+                  placeholder={t('registerPage.firstNamePlaceholder')}
                 />
               </div>
             </div>
 
             <div>
               <label htmlFor="lastname" className="block mb-2 text-sm font-medium">
-                Nom
+                {t('registerPage.lastNameLabel')}
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -113,7 +115,7 @@ const RegisterPage = ({ setShowScene }: RegisterPageProps) => {
                   value={lastname}
                   onChange={(e) => setLastname(e.target.value)}
                   className="block w-full pl-10 p-3 bg-primary-light rounded-md border border-gray-700 focus:border-secondary focus:outline-none"
-                  placeholder="Dupont"
+                  placeholder={t('registerPage.lastNamePlaceholder')}
                 />
               </div>
             </div>
@@ -121,7 +123,7 @@ const RegisterPage = ({ setShowScene }: RegisterPageProps) => {
 
           <div>
             <label htmlFor="username" className="block mb-2 text-sm font-medium">
-              Nom d'utilisateur
+              {t('registerPage.usernameLabel')}
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -133,14 +135,14 @@ const RegisterPage = ({ setShowScene }: RegisterPageProps) => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 className="block w-full pl-10 p-3 bg-primary-light rounded-md border border-gray-700 focus:border-secondary focus:outline-none"
-                placeholder="jeandupont"
+                placeholder={t('registerPage.usernamePlaceholder')}
               />
             </div>
           </div>
 
           <div>
             <label htmlFor="email" className="block mb-2 text-sm font-medium">
-              Email
+              {t('registerPage.emailLabel')}
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -152,7 +154,7 @@ const RegisterPage = ({ setShowScene }: RegisterPageProps) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="block w-full pl-10 p-3 bg-primary-light rounded-md border border-gray-700 focus:border-secondary focus:outline-none"
-                placeholder="vous@exemple.com"
+                placeholder={t('registerPage.emailPlaceholder')}
               />
             </div>
           </div>
@@ -162,7 +164,7 @@ const RegisterPage = ({ setShowScene }: RegisterPageProps) => {
               htmlFor="password"
               className="block mb-2 text-sm font-medium"
             >
-              Mot de passe
+              {t('registerPage.passwordLabel')}
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -174,7 +176,7 @@ const RegisterPage = ({ setShowScene }: RegisterPageProps) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="block w-full pl-10 p-3 bg-primary-light rounded-md border border-gray-700 focus:border-secondary focus:outline-none"
-                placeholder="••••••••"
+                placeholder={t('registerPage.passwordPlaceholder')}
               />
             </div>
           </div>
@@ -189,7 +191,7 @@ const RegisterPage = ({ setShowScene }: RegisterPageProps) => {
             ) : (
               <>
                 <UserPlus className="h-5 w-5 mr-2" />
-                Créer le compte
+                {t('registerPage.submitButton')}
               </>
             )}
           </button>
@@ -197,12 +199,12 @@ const RegisterPage = ({ setShowScene }: RegisterPageProps) => {
 
         <div className="mt-8 text-center text-sm">
           <p className="text-gray-400">
-            Vous avez déjà un compte ?{" "}
+            {t('registerPage.loginPrompt')}{" "}
             <Link
               to="/login"
               className="text-secondary hover:text-secondary-light"
             >
-              Se connecter
+              {t('registerPage.loginLink')}
             </Link>
           </p>
         </div>

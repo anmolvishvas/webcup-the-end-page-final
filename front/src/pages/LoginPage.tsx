@@ -156,14 +156,14 @@ const LoginPage = ({ setShowScene }: LoginPageProps) => {
           </form>
           <div className="mt-6 space-y-4">
             <div className="p-4 bg-secondary/10 border border-secondary/20 rounded-md">
-              <h3 className="text-lg font-medium mb-2 text-secondary">Demo Credentials for Jury</h3>
+              <h3 className="text-lg font-medium mb-2 text-secondary">{t('loginPage.demo.title')}</h3>
               <div className="space-y-2 text-sm">
                 <div>
-                  <span className="text-gray-400">Email:</span>
+                  <span className="text-gray-400">{t('loginPage.demo.email')}</span>
                   <code className="ml-2 px-2 py-1 bg-black/30 rounded">emma.garcia@theendpage.com</code>
                 </div>
                 <div>
-                  <span className="text-gray-400">Password:</span>
+                  <span className="text-gray-400">{t('loginPage.demo.password')}</span>
                   <code className="ml-2 px-2 py-1 bg-black/30 rounded">writer456</code>
                 </div>
               </div>

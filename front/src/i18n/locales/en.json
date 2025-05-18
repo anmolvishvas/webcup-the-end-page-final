@@ -15,7 +15,8 @@
     "create": "Create Page",
     "myPages": "My Pages",
     "login": "Login",
-    "logout": "Logout"
+    "logout": "Logout",
+    "register": "Register"
   },
   "language": {
     "toggle": "Change language",
@@ -43,7 +44,10 @@
     },
     "demo": {
       "login": "Try Demo Account",
-      "error": "Demo login failed"
+      "error": "Demo login failed",
+      "title": "Demo Credentials for Jury",
+      "email": "Email:",
+      "password": "Password:"
     }
   },
   "myPages": {
@@ -163,6 +167,54 @@
       "goHome": "Return to the Beginning",
       "tryAgain": "Rewrite this Moment",
       "goBack": "Previous Chapter"
+    }
+  },
+  "homePage": {
+    "title": {
+      "part1": "Every ending deserves",
+      "part2": "its own page"
+    },
+    "description": "Create a personalized farewell page when you leave a job, relationship, project, or community. Express your goodbyes in your own way.",
+    "createButton": "Create your end page",
+    "toneSection": {
+      "title": {
+        "part1": "How will you say",
+        "part2": "goodbye?"
+      },
+      "descriptions": {
+        "dramatic": "Embrace the emotions. Make your departure memorable with powerful words and images.",
+        "ironic": "Who needs sincere goodbyes? Add a touch of humor to your departure.",
+        "absurd": "Break all conventions. Create a surreal and unexpected farewell experience."
+      }
+    },
+    "topPages": {
+      "title": {
+        "part1": "The",
+        "part2": "unforgettable farewells"
+      },
+      "subtitle": "The most memorable farewell pages from our community"
+    }
+  },
+  "registerPage": {
+    "title": "Create an Account",
+    "subtitle": "Join our community and start sharing",
+    "firstNameLabel": "First Name",
+    "firstNamePlaceholder": "John",
+    "lastNameLabel": "Last Name",
+    "lastNamePlaceholder": "Doe",
+    "usernameLabel": "Username",
+    "usernamePlaceholder": "johndoe",
+    "emailLabel": "Email",
+    "emailPlaceholder": "you@example.com",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "••••••••",
+    "submitButton": "Create Account",
+    "loginPrompt": "Already have an account?",
+    "loginLink": "Login",
+    "errors": {
+      "emptyFields": "Please fill in all fields",
+      "emailExists": "This email already exists",
+      "registrationFailed": "Registration failed"
     }
   }
 } 

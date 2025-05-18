@@ -15,7 +15,8 @@
     "create": "Créer une page",
     "myPages": "Mes pages",
     "login": "Se connecter",
-    "logout": "Déconnexion"
+    "logout": "Déconnexion",
+    "register": "S'inscrire"
   },
   "language": {
     "toggle": "Changer de langue",
@@ -43,7 +44,10 @@
     },
     "demo": {
       "login": "Essayer le compte de démonstration",
-      "error": "La connexion de démonstration a échoué"
+      "error": "La connexion de démonstration a échoué",
+      "title": "Identifiants de démonstration pour le jury",
+      "email": "Email :",
+      "password": "Mot de passe :"
     }
   },
   "myPages": {
@@ -163,6 +167,54 @@
       "goHome": "Retourner au Début",
       "tryAgain": "Réécrire ce Moment",
       "goBack": "Chapitre Précédent"
+    }
+  },
+  "homePage": {
+    "title": {
+      "part1": "Chaque fin mérite",
+      "part2": "sa propre page"
+    },
+    "description": "Créez une page d'adieu personnalisée lorsque vous quittez un emploi, une relation, un projet ou une communauté. Exprimez vos adieux à votre façon.",
+    "createButton": "Créer votre page de fin",
+    "toneSection": {
+      "title": {
+        "part1": "Comment direz-vous",
+        "part2": "au revoir ?"
+      },
+      "descriptions": {
+        "dramatic": "Embrassez les émotions. Rendez votre départ mémorable avec des mots et des images puissants.",
+        "ironic": "Qui a besoin d'adieux sincères ? Ajoutez une touche d'humour à votre départ.",
+        "absurd": "Brisez toutes les conventions. Créez une expérience d'adieu surréaliste et inattendue."
+      }
+    },
+    "topPages": {
+      "title": {
+        "part1": "Les adieux",
+        "part2": "inoubliables"
+      },
+      "subtitle": "Les pages d'adieu les plus mémorables de notre communauté"
+    }
+  },
+  "registerPage": {
+    "title": "Créer un compte",
+    "subtitle": "Rejoignez notre communauté et commencez à partager",
+    "firstNameLabel": "Prénom",
+    "firstNamePlaceholder": "Jean",
+    "lastNameLabel": "Nom",
+    "lastNamePlaceholder": "Dupont",
+    "usernameLabel": "Nom d'utilisateur",
+    "usernamePlaceholder": "jeandupont",
+    "emailLabel": "Email",
+    "emailPlaceholder": "vous@exemple.com",
+    "passwordLabel": "Mot de passe",
+    "passwordPlaceholder": "••••••••",
+    "submitButton": "Créer le compte",
+    "loginPrompt": "Vous avez déjà un compte ?",
+    "loginLink": "Se connecter",
+    "errors": {
+      "emptyFields": "Veuillez remplir tous les champs",
+      "emailExists": "Cet email existe déjà",
+      "registrationFailed": "Échec de l'inscription"
     }
   }
 } 

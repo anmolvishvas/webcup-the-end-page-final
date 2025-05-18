@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, BookOpen, Trophy, Crown, Star, Medal, Sparkles } from 'lucide-react';
 import { useEndPage } from '../context/EndPageContext';
+import { useTranslation } from 'react-i18next';
 
 interface HomePageProps {
   setShowScene: (show: boolean) => void;
@@ -10,6 +11,7 @@ interface HomePageProps {
 
 const HomePage = ({ setShowScene }: HomePageProps) => {
   const { topPages, isLoading } = useEndPage();
+  const { t } = useTranslation();
 
   useEffect(() => {
     setShowScene(true);
@@ -25,12 +27,11 @@ const HomePage = ({ setShowScene }: HomePageProps) => {
           className="max-w-3xl mx-auto"
         >
           <h1 className="text-5xl md:text-6xl font-serif font-bold mb-6">
-            Chaque fin mérite <span className="gradient-text">sa propre page</span>
+            {t('homePage.title.part1')} <span className="gradient-text">{t('homePage.title.part2')}</span>
           </h1>
           
           <p className="text-xl text-gray-300 mb-10">
-            Créez une page d'adieu personnalisée lorsque vous quittez un emploi, une relation,
-            un projet ou une communauté. Exprimez vos adieux à votre façon.
+            {t('homePage.description')}
           </p>
           
           <Link
@@ -38,7 +39,7 @@ const HomePage = ({ setShowScene }: HomePageProps) => {
             className="inline-flex items-center bg-secondary hover:bg-secondary-light 
                        text-white px-8 py-3 rounded-md text-lg font-medium transition-colors"
           >
-            Créer votre page de fin <ArrowRight className="ml-2 h-5 w-5" />
+            {t('homePage.createButton')} <ArrowRight className="ml-2 h-5 w-5" />
           </Link>
         </motion.div>
       </section>
@@ -46,21 +47,17 @@ const HomePage = ({ setShowScene }: HomePageProps) => {
       <section className="py-16 px-6 bg-black/30 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-serif font-bold mb-12 text-center">
-            Comment direz-vous <span className="gradient-text">au revoir ?</span>
+            {t('homePage.toneSection.title.part1')} <span className="gradient-text">{t('homePage.toneSection.title.part2')}</span>
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {(['dramatic', 'ironic', 'absurd'] as const).map((tone) => (
               <div key={tone} className="bg-primary-light p-6 rounded-lg">
                 <h3 className="font-serif text-xl mb-3 capitalize">
-                  {tone === 'dramatic' && 'Dramatique'}
-                  {tone === 'ironic' && 'Ironique'}
-                  {tone === 'absurd' && 'Absurde'}
+                  {t(`tones.${tone}`)}
                 </h3>
                 <p className="text-gray-300 mb-4">
-                  {tone === 'dramatic' && 'Embrassez les émotions. Rendez votre départ mémorable avec des mots et des images puissants.'}
-                  {tone === 'ironic' && 'Qui a besoin d\'adieux sincères ? Ajoutez une touche d\'humour à votre départ.'}
-                  {tone === 'absurd' && 'Brisez toutes les conventions. Créez une expérience d\'adieu surréaliste et inattendue.'}
+                  {t(`homePage.toneSection.descriptions.${tone}`)}
                 </p>
               </div>
             ))}
@@ -73,12 +70,12 @@ const HomePage = ({ setShowScene }: HomePageProps) => {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-24 relative">
             <h2 className="text-4xl md:text-5xl font-serif font-bold relative z-10 inline-block">
-              Les adieux <span className="gradient-text">inoubliables</span>
+              {t('homePage.topPages.title.part1')} <span className="gradient-text">{t('homePage.topPages.title.part2')}</span>
             </h2>
             <div className="absolute -top-6 -left-6 w-12 h-12 border-t-2 border-l-2 border-secondary opacity-60" />
             <div className="absolute -bottom-6 -right-6 w-12 h-12 border-b-2 border-r-2 border-secondary opacity-60" />
             <div className="mt-4 text-gray-400 text-lg max-w-xl mx-auto">
-              Les pages d'adieu les plus mémorables de notre communauté
+              {t('homePage.topPages.subtitle')}
             </div>
           </div>
 

@@ -3,10 +3,12 @@ import { BookOpen, LogOut, User, ChevronDown, Menu, X, PenLine } from 'lucide-re
 import { useAuth } from '../context/AuthContext';
 import { useState, useRef, useEffect } from 'react';
 import LanguageToggle from './LanguageToggle';
+import { useTranslation } from 'react-i18next';
 
 const Header = () => {
   const location = useLocation();
   const { currentUser, logout, isAuthenticated } = useAuth();
+  const { t } = useTranslation();
   const isViewPage = location.pathname.startsWith('/view/');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -42,7 +44,7 @@ const Header = () => {
               onClick={() => setIsMobileMenuOpen(false)}
             >
               <PenLine className="h-5 w-5" />
-              <span>Créer votre fin</span>
+              <span>{t('header.create')}</span>
             </Link>
           </li>
           <li>
@@ -52,7 +54,7 @@ const Header = () => {
               onClick={() => setIsMobileMenuOpen(false)}
             >
               <BookOpen className="h-5 w-5" />
-              <span>Mes Pages</span>
+              <span>{t('header.myPages')}</span>
             </Link>
           </li>
         </>
@@ -96,7 +98,7 @@ const Header = () => {
                         className="w-full px-4 py-2 text-left text-gray-300 hover:text-white hover:bg-gray-700 flex items-center space-x-2"
                       >
                         <LogOut className="h-4 w-4" />
-                        <span>Se déconnecter</span>
+                        <span>{t('header.logout')}</span>
                       </button>
                     </div>
                   )}
@@ -108,7 +110,7 @@ const Header = () => {
                       to="/login"
                       className="text-gray-300 hover:text-white transition-colors"
                     >
-                      Se connecter
+                      {t('header.login')}
                     </Link>
                   </li>
                   <li>
@@ -116,7 +118,7 @@ const Header = () => {
                       to="/register"
                       className="px-4 py-2 bg-secondary hover:bg-secondary-light rounded-md transition-colors"
                     >
-                      S'inscrire
+                      {t('header.register')}
                     </Link>
                   </li>
                 </>
@@ -160,7 +162,7 @@ const Header = () => {
                     className="w-full px-4 py-2 text-left text-gray-300 hover:text-white hover:bg-gray-700 flex items-center space-x-2"
                   >
                     <LogOut className="h-4 w-4" />
-                    <span>Se déconnecter</span>
+                    <span>{t('header.logout')}</span>
                   </button>
                 </li>
               ) : (
@@ -171,7 +173,7 @@ const Header = () => {
                       className="block px-4 py-2 text-gray-300 hover:text-white transition-colors"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
-                      Se connecter
+                      {t('header.login')}
                     </Link>
                   </li>
                   <li>
@@ -180,7 +182,7 @@ const Header = () => {
                       className="block px-4 py-2 bg-secondary hover:bg-secondary-light rounded-md transition-colors"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
-                      S'inscrire
+                      {t('header.register')}
                     </Link>
                   </li>
                 </>
