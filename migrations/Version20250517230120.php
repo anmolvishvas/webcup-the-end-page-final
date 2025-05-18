@@ -21,7 +21,7 @@ final class Version20250517230120 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql(<<<'SQL'
-            ALTER TABLE end_pages CHANGE emails emails JSON DEFAULT '[]' COMMENT '(DC2Type:json)'
+            ALTER TABLE end_pages CHANGE emails emails JSON COMMENT '(DC2Type:json)'
         SQL);
     }
 
@@ -29,7 +29,7 @@ final class Version20250517230120 extends AbstractMigration
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql(<<<'SQL'
-            ALTER TABLE end_pages CHANGE emails emails JSON DEFAULT NULL COMMENT '(DC2Type:json)'
+            ALTER TABLE end_pages CHANGE emails emails JSON COMMENT '(DC2Type:json)'
         SQL);
     }
 }
