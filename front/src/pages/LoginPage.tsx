@@ -154,17 +154,22 @@ const LoginPage = ({ setShowScene }: LoginPageProps) => {
               )}
             </button>
           </form>
-          
-          <div className="mt-6">
-            <button
-              onClick={handleDemoLogin}
-              disabled={isLoading}
-              className="w-full py-3 border border-gray-600 hover:bg-gray-800 rounded-md transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Essayer avec le compte de démonstration
-            </button>
+          <div className="mt-6 space-y-4">
+            <div className="p-4 bg-secondary/10 border border-secondary/20 rounded-md">
+              <h3 className="text-lg font-medium mb-2 text-secondary">Demo Credentials for Jury</h3>
+              <div className="space-y-2 text-sm">
+                <div>
+                  <span className="text-gray-400">Email:</span>
+                  <code className="ml-2 px-2 py-1 bg-black/30 rounded">emma.garcia@theendpage.com</code>
+                </div>
+                <div>
+                  <span className="text-gray-400">Password:</span>
+                  <code className="ml-2 px-2 py-1 bg-black/30 rounded">writer456</code>
+                </div>
+              </div>
+            </div>
           </div>
-          
+
           <div className="mt-8 text-center text-sm">
             <p className="text-gray-400">
               {t('loginPage.registerPrompt')}{" "}
