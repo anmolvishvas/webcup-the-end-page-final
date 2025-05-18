@@ -1,13 +1,15 @@
 import { useEffect, useState, useCallback } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Share, MessageSquare, Send, ArrowLeft, BookOpen } from "lucide-react";
+import { Share, MessageSquare, Send, ArrowLeft, BookOpen, Lock } from "lucide-react";
 import { endPageService } from "../services/endPageService";
 import { useTranslation } from "react-i18next";
 import DiaryBook from "../components/diary/DiaryBook";
 import type { CreateEndPageResponse } from "../services/endPageService";
 import type { Tone } from "../types";
 import RatingModal from "../components/RatingModal";
+import { useEndPage } from "../context/EndPageContext";
+import { useAuth } from "../context/AuthContext";
 
 interface ViewPageProps {
   setShowScene: (show: boolean) => void;
@@ -17,6 +19,8 @@ const ViewPage = ({ setShowScene }: ViewPageProps) => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const { t } = useTranslation();
+  const { refreshPages } = useEndPage();
+  const { currentUser } = useAuth();
   const [page, setPage] = useState<CreateEndPageResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -54,13 +58,19 @@ const ViewPage = ({ setShowScene }: ViewPageProps) => {
       if (!result.success || !result.data) {
         throw new Error(result.error || "Failed to fetch end page");
       }
+
+      // Check if the page is private and user is not authenticated
+      if (result.data.private && !currentUser) {
+        throw new Error("This page is private. Please log in to view it.");
+      }
+
       setPage(result.data);
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
       setIsLoading(false);
     }
-  }, [id]);
+  }, [id, currentUser]);
 
   useEffect(() => {
     fetchEndPage();
@@ -111,11 +121,24 @@ const ViewPage = ({ setShowScene }: ViewPageProps) => {
 
   const handleBack = (e: React.MouseEvent) => {
     e.preventDefault();
+    
+    // If the current user is the page owner, redirect directly to home
+    if (currentUser && page && page.user === `/api/users/${currentUser.id}`) {
+      navigate('/');
+      return;
+    }
+    
     setShowRatingModal(true);
   };
 
   const handleRate = async (rating: number) => {
     if (!id) return;
+    
+    // Double-check to prevent rating own page
+    if (currentUser && page && page.user === `/api/users/${currentUser.id}`) {
+      navigate('/');
+      return;
+    }
     
     try {
       const result = await endPageService.addRating(id, rating);
@@ -125,6 +148,8 @@ const ViewPage = ({ setShowScene }: ViewPageProps) => {
       
       // Refresh the page data to show updated rating
       await fetchEndPage();
+      // Refresh the top pages in the context
+      await refreshPages();
       setIsRatingComplete(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to submit rating");
@@ -135,6 +160,30 @@ const ViewPage = ({ setShowScene }: ViewPageProps) => {
     setShowRatingModal(false);
     setIsRatingComplete(false);
     navigate('/');
+  };
+
+  const formatCommentDate = (date: Date): string => {
+    const now = new Date();
+    const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+    const diffInMinutes = Math.floor(diffInSeconds / 60);
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    const diffInDays = Math.floor(diffInHours / 24);
+
+    if (diffInSeconds < 60) {
+      return 'just now';
+    } else if (diffInMinutes < 60) {
+      return `${diffInMinutes} ${diffInMinutes === 1 ? 'minute' : 'minutes'} ago`;
+    } else if (diffInHours < 24) {
+      return `${diffInHours} ${diffInHours === 1 ? 'hour' : 'hours'} ago`;
+    } else if (diffInDays < 7) {
+      return `${diffInDays} ${diffInDays === 1 ? 'day' : 'days'} ago`;
+    } else {
+      return date.toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      });
+    }
   };
 
   if (isLoading) {
@@ -149,14 +198,27 @@ const ViewPage = ({ setShowScene }: ViewPageProps) => {
     return (
       <div className="min-h-screen flex items-center justify-center px-4">
         <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-6 max-w-md w-full">
-          <h2 className="text-xl font-bold text-red-500 mb-2">Error</h2>
+          <div className="flex items-center gap-2 mb-4">
+            <Lock className="h-5 w-5 text-red-500" />
+            <h2 className="text-xl font-bold text-red-500">Access Denied</h2>
+          </div>
           <p className="text-red-400">{error || "End page not found"}</p>
-          <button
-            onClick={() => navigate("/")}
-            className="mt-4 px-4 py-2 bg-red-500/20 hover:bg-red-500/30 rounded-md transition-colors"
-          >
-            {t("common.backToHome")}
-          </button>
+          <div className="mt-6 flex gap-4">
+            <button
+              onClick={() => navigate("/")}
+              className="px-4 py-2 bg-red-500/20 hover:bg-red-500/30 rounded-md transition-colors"
+            >
+              {t("common.backToHome")}
+            </button>
+            {!currentUser && (
+              <button
+                onClick={() => navigate("/login")}
+                className="px-4 py-2 bg-secondary hover:bg-secondary-light rounded-md transition-colors"
+              >
+                Log In
+              </button>
+            )}
+          </div>
         </div>
       </div>
     );
@@ -295,18 +357,18 @@ const ViewPage = ({ setShowScene }: ViewPageProps) => {
                         className="md:col-span-1 p-2 bg-primary-light rounded-md border border-gray-700"
                         required
                       />
-                      <input
+                      <textarea
                         value={commentText}
                         onChange={(e) => setCommentText(e.target.value)}
-                        placeholder="Leave a comment..."
-                        className="md:col-span-3 p-2 bg-primary-light rounded-md border border-gray-700"
+                        placeholder="Share your thoughts about this goodbye message..."
+                        className="md:col-span-3 p-2 bg-primary-light rounded-md border border-gray-700 min-h-[80px] resize-y"
                         required
                       />
                     </div>
                     <div className="flex justify-end">
                       <button
                         type="submit"
-                        className="flex items-center bg-secondary hover:bg-secondary-light px-4 py-2 rounded-md text-sm"
+                        className="flex items-center bg-secondary hover:bg-secondary-light px-4 py-2 rounded-md text-sm transition-colors"
                       >
                         <Send className="mr-2 h-4 w-4" />
                         Post Comment
@@ -320,22 +382,52 @@ const ViewPage = ({ setShowScene }: ViewPageProps) => {
                         No comments yet. Be the first to share your thoughts.
                       </p>
                     ) : (
-                      page.comments.map((comment) => (
-                        <div
-                          key={comment.id}
-                          className="bg-gray-800/50 p-4 rounded-md"
-                        >
-                          <div className="flex justify-between mb-2">
-                            <span className="font-medium">
-                              {comment.author}
-                            </span>
-                            <span className="text-xs text-gray-400">
-                              {new Date(comment.createdAt).toLocaleDateString()}
-                            </span>
+                      <div className="space-y-4">
+                        <div className="flex justify-between items-center mb-4">
+                          <h3 className="text-lg font-medium text-white/80">
+                            {page.comments.length} {page.comments.length === 1 ? 'Comment' : 'Comments'}
+                          </h3>
+                          <div className="text-sm text-white/60">
+                            Sorted by newest first
                           </div>
-                          <p className="text-gray-200">{comment.text}</p>
                         </div>
-                      ))
+                        {[...page.comments]
+                          .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+                          .map((comment) => (
+                          <div
+                            key={comment.id}
+                            className="bg-gray-800/50 p-4 rounded-md hover:bg-gray-800/70 transition-colors"
+                          >
+                            <div className="flex justify-between items-center mb-2">
+                              <div className="flex items-center gap-2">
+                                <span className="font-medium text-secondary">
+                                  {comment.author}
+                                </span>
+                                <span className="text-xs text-gray-400 italic">
+                                  wrote
+                                </span>
+                              </div>
+                              <time 
+                                dateTime={comment.createdAt}
+                                className="text-xs text-gray-400"
+                                title={new Date(comment.createdAt).toLocaleString(undefined, {
+                                  weekday: 'long',
+                                  year: 'numeric',
+                                  month: 'long',
+                                  day: 'numeric',
+                                  hour: '2-digit',
+                                  minute: '2-digit'
+                                })}
+                              >
+                                {formatCommentDate(new Date(comment.createdAt))}
+                              </time>
+                            </div>
+                            <p className="text-gray-200 whitespace-pre-wrap leading-relaxed">
+                              {comment.text}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
                     )}
                   </div>
                 </motion.div>

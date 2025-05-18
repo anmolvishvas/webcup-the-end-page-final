@@ -4,8 +4,6 @@ import { motion } from 'framer-motion';
 import { LogIn, Mail, Lock } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useTranslation } from 'react-i18next';
-import LanguageToggle from '../components/LanguageToggle';
-import AttemptsWarningModal from '../components/AttemptsWarningModal';
 
 interface LocationState {
   from?: {
@@ -27,9 +25,6 @@ const LoginPage = ({ setShowScene }: LoginPageProps) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [showAttemptsModal, setShowAttemptsModal] = useState(false);
-  const [attemptsLeft, setAttemptsLeft] = useState(3);
-  const [isAccountDeactivated, setIsAccountDeactivated] = useState(false);
   
   const state = location.state as LocationState;
   const from = state?.from?.pathname || '/';
@@ -56,37 +51,36 @@ const LoginPage = ({ setShowScene }: LoginPageProps) => {
     try {
       await login(email, password);
       navigate(from, { replace: true });
-    } catch (err: any) {
-      // Check if it's an API error response
-      if (err.response?.data) {
-        const { error, attempts_left, is_active } = err.response.data;
-        
-        if (error === 'Account is deactivated due to too many failed attempts. Please contact support.') {
-          setIsAccountDeactivated(true);
-          setShowAttemptsModal(true);
-          setError(t('loginPage.accountDeactivated'));
-        } else if (attempts_left !== undefined) {
-          setAttemptsLeft(attempts_left);
-          setShowAttemptsModal(true);
-          setError(t('loginPage.attemptsRemaining', { count: attempts_left }));
-        } else {
-          setError(t('loginPage.error'));
-        }
-      } else {
-        setError(t('loginPage.error'));
-      }
+    } catch (err) {
+      setError(
+        err instanceof Error 
+          ? err.message === 'Invalid credentials.'
+            ? t('loginPage.errors.invalidCredentials')
+            : err.message
+          : t('loginPage.errors.loginFailed')
+      );
     } finally {
       setIsLoading(false);
     }
   };
-
+  
+  // Demo login function
+  const handleDemoLogin = async () => {
+    setIsLoading(true);
+    setError('');
+    
+    try {
+      await login('demo@example.com', 'demo123');
+      navigate(from, { replace: true });
+    } catch (err) {
+      setError(t('loginPage.demoError'));
+    } finally {
+      setIsLoading(false);
+    }
+  };
   
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="absolute top-4 right-4">
-        <LanguageToggle />
-      </div>
-      
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -107,7 +101,7 @@ const LoginPage = ({ setShowScene }: LoginPageProps) => {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="email" className="block text-sm font-medium mb-2">
-                {t('loginPage.email')}
+                {t('loginPage.emailLabel')}
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -127,7 +121,7 @@ const LoginPage = ({ setShowScene }: LoginPageProps) => {
             
             <div>
               <label htmlFor="password" className="block text-sm font-medium mb-2">
-                {t('loginPage.password')}
+                {t('loginPage.passwordLabel')}
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -148,22 +142,32 @@ const LoginPage = ({ setShowScene }: LoginPageProps) => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full flex items-center justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-black bg-secondary hover:bg-secondary-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary disabled:opacity-50"
+              className="w-full py-3 bg-secondary hover:bg-secondary-light rounded-md transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
-                <div className="w-5 h-5 border-2 border-black/20 border-t-black rounded-full animate-spin" />
+                <span className="loader-sm" />
               ) : (
                 <>
-                  <LogIn className="w-5 h-5 mr-2" />
+                  <LogIn className="h-5 w-5 mr-2" />
                   {t('loginPage.loginButton')}
                 </>
               )}
             </button>
           </form>
           
+          <div className="mt-6">
+            <button
+              onClick={handleDemoLogin}
+              disabled={isLoading}
+              className="w-full py-3 border border-gray-600 hover:bg-gray-800 rounded-md transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Essayer avec le compte de démonstration
+            </button>
+          </div>
+          
           <div className="mt-8 text-center text-sm">
             <p className="text-gray-400">
-              {t('loginPage.noAccount')}{" "}
+              {t('loginPage.registerPrompt')}{" "}
               <Link
                 to="/register"
                 className="text-secondary hover:text-secondary-light font-medium"
@@ -174,13 +178,6 @@ const LoginPage = ({ setShowScene }: LoginPageProps) => {
           </div>
         </div>
       </motion.div>
-
-      <AttemptsWarningModal
-        isOpen={showAttemptsModal}
-        onClose={() => setShowAttemptsModal(false)}
-        attemptsLeft={attemptsLeft}
-        isDeactivated={isAccountDeactivated}
-      />
     </div>
   );
 };
