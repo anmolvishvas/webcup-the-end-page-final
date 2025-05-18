@@ -234,17 +234,17 @@ const ViewPage = ({ setShowScene }: ViewPageProps) => {
                 {page.medias && page.medias.length > 0 && (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                     {page.medias.map((media, idx) => (
-                      media.type === 'video' ? (
+                      media.media_type.startsWith('video') ? (
                         <video
                           key={`video-${idx}`}
-                          src={media.url}
+                          src={media.full_url}
                           className="w-full rounded-md shadow-lg"
                           controls
                         />
                       ) : (
                         <img
                           key={`img-${idx}`}
-                          src={media.url}
+                          src={media.full_url}
                           alt={`Media ${idx + 1}`}
                           className="w-full rounded-md shadow-lg"
                         />

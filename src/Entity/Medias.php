@@ -7,33 +7,43 @@ use App\Repository\MediasRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
 #[ORM\Entity(repositoryClass: MediasRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: ['groups' => ['media:read']]
+)]
 #[ORM\HasLifecycleCallbacks]
 class Medias
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['media:read'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'medias')]
     private ?EndPages $end_pages = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['media:read', 'endpage:read'])]
     private ?string $media_type = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['media:read', 'endpage:read'])]
     private ?string $url = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['media:read'])]
     private ?string $original_filename = null;
 
     #[ORM\Column]
+    #[Groups(['media:read'])]
     private ?int $file_size = null;
 
     #[ORM\Column]
+    #[Groups(['media:read'])]
     private ?\DateTimeImmutable $createdAt = null;
 
     private ?File $file = null;
@@ -150,5 +160,12 @@ class Medias
     {
         $this->uploadedFile = $uploadedFile;
         return $this;
+    }
+
+    #[Groups(['media:read', 'endpage:read'])]
+    #[SerializedName('full_url')]
+    public function getFullUrl(): string
+    {
+        return 'http://localhost/theEndPage_Webcup/public/uploads/' . $this->url;
     }
 }

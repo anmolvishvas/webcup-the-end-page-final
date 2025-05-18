@@ -8,8 +8,15 @@ interface DiaryBookProps {
   content: string;
   tone: Tone;
   medias: Array<{
+    "@id": string;
+    "@type": string;
+    id: number;
+    media_type: string;
     url: string;
-    type: string;
+    full_url: string;
+    original_filename: string;
+    file_size: number;
+    createdAt: string;
   }>;
 }
 
@@ -106,13 +113,13 @@ const DiaryBook: React.FC<DiaryBookProps> = ({
           <h2 className="text-xl font-serif mb-4 text-gray-800">Memories</h2>
           <div className="grid grid-cols-2 gap-3">
             {medias.map((media, idx) => (
-              media.type === 'video' ? (
+              media.media_type.startsWith('video') ? (
                 <div
                   key={`video-${idx}`}
                   className="overflow-hidden rounded-md shadow-md"
                 >
                   <video
-                    src={media.url}
+                    src={media.full_url}
                     className="w-full h-40 object-cover"
                     controls
                   />
@@ -123,7 +130,7 @@ const DiaryBook: React.FC<DiaryBookProps> = ({
                   className="overflow-hidden rounded-md shadow-md"
                 >
                   <img
-                    src={media.url}
+                    src={media.full_url}
                     alt={`Memory ${idx + 1}`}
                     className="w-full h-40 object-cover"
                   />

@@ -30,8 +30,15 @@ export interface CreateEndPageResponse {
   totalRating: number;
   numberOfVotes: number;
   medias: Array<{
+    "@id": string;
+    "@type": string;
+    id: number;
+    media_type: string;
     url: string;
-    type: string;
+    full_url: string;
+    original_filename: string;
+    file_size: number;
+    createdAt: string;
   }>;
   comments: Array<{
     id: string;

@@ -20,6 +20,7 @@ use Symfony\Component\Uid\Uuid;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Metadata\ApiProperty;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: EndPagesRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -27,14 +28,18 @@ use ApiPlatform\Metadata\ApiProperty;
     operations: [
         new Post(
             processor: EndPageProcessor::class,
-            validationContext: ['groups' => ['Default']]
+            validationContext: ['groups' => ['Default']],
+            normalizationContext: ['groups' => ['endpage:read', 'media:read']]
         ),
         new Get(
             uriTemplate: '/end_pages/{uuid}',
             provider: EndPageProvider::class,
-            uriVariables: ['uuid' => ['from_class' => EndPages::class]]
+            uriVariables: ['uuid' => ['from_class' => EndPages::class]],
+            normalizationContext: ['groups' => ['endpage:read', 'media:read']]
         ),
-        new GetCollection(),
+        new GetCollection(
+            normalizationContext: ['groups' => ['endpage:read', 'media:read']]
+        ),
         new GetCollection(
             uriTemplate: '/users/{userId}/end_pages',
             uriVariables: [
@@ -43,9 +48,13 @@ use ApiPlatform\Metadata\ApiProperty;
                     'identifier_name' => 'id'
                 ]
             ],
-            provider: EndPageProvider::class
+            provider: EndPageProvider::class,
+            normalizationContext: ['groups' => ['endpage:read', 'media:read']]
         ),
-        new Put(processor: EndPageProcessor::class),
+        new Put(
+            processor: EndPageProcessor::class,
+            normalizationContext: ['groups' => ['endpage:read', 'media:read']]
+        ),
         new Delete()
     ]
 )]
@@ -55,61 +64,77 @@ class EndPages
     #[ORM\GeneratedValue]
     #[ORM\Column]
     #[ApiProperty(identifier: false)]
+    #[Groups(['endpage:read'])]
     private ?int $id = null;
 
     #[ORM\Column(type: UuidType::NAME, unique: true)]
     #[ApiProperty(identifier: true)]
+    #[Groups(['endpage:read'])]
     private ?Uuid $uuid = null;
 
     #[ORM\ManyToOne(inversedBy: 'endPages')]
+    #[Groups(['endpage:read'])]
     private ?Users $user = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['endpage:read'])]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['endpage:read'])]
     private ?string $content = null;
 
     #[ORM\Column(enumType: Tone::class)]
+    #[Groups(['endpage:read'])]
     private ?Tone $tone = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['endpage:read'])]
     private ?string $background_type = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['endpage:read'])]
     private ?string $background_value = null;
 
     #[ORM\Column]
+    #[Groups(['endpage:read'])]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(options: ["default" => false])]
+    #[Groups(['endpage:read'])]
     private bool $isPrivate = false;
 
     #[ORM\Column(type: Types::INTEGER, options: ["default" => 0])]
+    #[Groups(['endpage:read'])]
     private int $totalRating = 0;
 
     #[ORM\Column(type: Types::INTEGER, options: ["default" => 0])]
+    #[Groups(['endpage:read'])]
     private int $numberOfVotes = 0;
 
     #[ORM\Column(type: Types::FLOAT, nullable: true)]
+    #[Groups(['endpage:read'])]
     private ?float $averageRating = null;
 
     #[ORM\Column(type: Types::JSON, nullable: true)]
     #[Assert\All([
         new Assert\Email(message: "The email '{{ value }}' is not a valid email.")
     ])]
+    #[Groups(['endpage:read'])]
     private ?array $emails = null;
 
     /**
      * @var Collection<int, Medias>
      */
     #[ORM\OneToMany(targetEntity: Medias::class, mappedBy: 'end_pages')]
+    #[Groups(['endpage:read'])]
     private Collection $medias;
 
     /**
      * @var Collection<int, Comments>
      */
     #[ORM\OneToMany(targetEntity: Comments::class, mappedBy: 'end_page')]
+    #[Groups(['endpage:read'])]
     private Collection $comments;
 
     public function __construct()
