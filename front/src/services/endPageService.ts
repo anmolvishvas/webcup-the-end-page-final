@@ -1,6 +1,7 @@
 import axios from "axios";
+import type { EndPage, EndPagesCollection } from '../types';
 
-const API_URL = "https://localhost:8000/api";
+const API_URL = "http://localhost:8000/api";
 
 interface CreateEndPageRequest {
   user: string;
@@ -57,6 +58,14 @@ interface RatingResponse {
     numberOfVotes: number;
     averageRating: number;
   };
+}
+
+interface EndPagesCollectionResponse {
+  "@context": string;
+  "@id": string;
+  "@type": string;
+  "totalItems": number;
+  "member": EndPage[];
 }
 
 export const endPageService = {
@@ -162,8 +171,13 @@ export const endPageService = {
   addComment: async (uuid: string, comment: { text: string; author: string }): Promise<{ success: boolean; error?: string }> => {
     try {
       await axios.post(
-        `${API_URL}/end_pages/${uuid}/comments`,
-        comment,
+        `${API_URL}/comments`,
+        {
+          text: comment.text,
+          author: comment.author,
+          end_page: `/api/end_pages/${uuid}`,
+          createdAt: new Date().toISOString()
+        },
         {
           headers: {
             "Content-Type": "application/ld+json",
@@ -218,5 +232,66 @@ export const endPageService = {
         error: "Failed to add rating",
       };
     }
-  }
+  },
+
+  getUserEndPages: async (userId: number): Promise<{ success: boolean; data?: EndPage[]; error?: string }> => {
+    try {
+      const response = await axios.get<EndPagesCollection>(
+        `${API_URL}/users/${userId}/end_pages`,
+        {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      return {
+        success: true,
+        data: response.data.member,
+      };
+    } catch (error) {
+      const axiosError = error as { response?: { data: { message: string } } };
+      if (axiosError.response?.data?.message) {
+        return {
+          success: false,
+          error: axiosError.response.data.message,
+        };
+      }
+      return {
+        success: false,
+        error: "Failed to fetch user's end pages",
+      };
+    }
+  },
+
+  getAllEndPages: async (): Promise<{ success: boolean; data?: EndPage[]; error?: string }> => {
+    try {
+      const response = await axios.get<EndPagesCollectionResponse>(
+        `${API_URL}/end_pages`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      return {
+        success: true,
+        data: response.data.member,
+      };
+    } catch (error) {
+      const axiosError = error as { response?: { data: { message: string } } };
+      if (axiosError.response?.data?.message) {
+        return {
+          success: false,
+          error: axiosError.response.data.message,
+        };
+      }
+      return {
+        success: false,
+        error: "Failed to fetch end pages",
+      };
+    }
+  },
 }; 

@@ -1,16 +1,45 @@
 export interface EndPage {
-  id: string;
+  id: number;
+  uuid: string;
   title: string;
   content: string;
-  tone: Tone;
+  tone: string;
   createdAt: string;
-  backgroundType: BackgroundType;
+  backgroundType: string;
   backgroundValue: string;
+  background_type: string;
+  background_value: string;
+  totalRating?: number;
+  numberOfVotes?: number;
+  averageRating?: number;
+  isPrivate?: boolean;
+  comments?: Array<{
+    id: string;
+    text: string;
+    author: string;
+    createdAt: string;
+  }>;
+  medias?: Array<{
+    id: number;
+    media_type: string;
+    url: string;
+    full_url: string;
+    original_filename: string;
+    file_size: number;
+    createdAt: string;
+  }>;
+  images?: string[];
+  videos?: string[];
+  gifs?: string[];
   music?: string;
-  images: string[];
-  gifs: string[];
-  videos: string[];
-  comments: Comment[];
+}
+
+export interface EndPagesCollection {
+  "@context": string;
+  "@id": string;
+  "@type": string;
+  totalItems: number;
+  member: EndPage[];
 }
 
 export type Tone =

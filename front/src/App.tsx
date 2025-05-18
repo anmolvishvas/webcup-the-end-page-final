@@ -19,40 +19,31 @@ function App() {
     <AuthProvider>
       <EndPageProvider>
         <Router>
-          <div className="min-h-screen flex flex-col">
-            {showScene && <BackgroundScene />}
+          <div className="min-h-screen bg-primary text-white">
             <Header />
-            <main className="flex-grow">
-              <Routes>
-                <Route path="/" element={<HomePage setShowScene={setShowScene} />} />
-                <Route path="/login" element={<LoginPage setShowScene={setShowScene} />} />
-                <Route path="/register" element={<RegisterPage setShowScene={setShowScene} />} />
-                <Route 
-                  path="/create" 
-                  element={
-                    <ProtectedRoute>
-                      <CreatePage setShowScene={setShowScene} />
-                    </ProtectedRoute>
-                  } 
-                />
-                <Route 
-                  path="/view/:id" 
-                  element={
-                    <ProtectedRoute>
-                      <ViewPage setShowScene={setShowScene} />
-                    </ProtectedRoute>
-                  } 
-                />
-                <Route 
-                  path="/my-pages" 
-                  element={
-                    <ProtectedRoute>
-                      <MyPagesPage setShowScene={setShowScene} />
-                    </ProtectedRoute>
-                  } 
-                />
-              </Routes>
-            </main>
+            <Routes>
+              <Route path="/" element={<HomePage setShowScene={setShowScene} />} />
+              <Route path="/login" element={<LoginPage setShowScene={setShowScene} />} />
+              <Route path="/register" element={<RegisterPage setShowScene={setShowScene} />} />
+              <Route path="/view/:id" element={<ViewPage setShowScene={setShowScene} />} />
+              <Route
+                path="/create"
+                element={
+                  <ProtectedRoute>
+                    <CreatePage setShowScene={setShowScene} />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/my-pages"
+                element={
+                  <ProtectedRoute>
+                    <MyPagesPage setShowScene={setShowScene} />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+            {showScene && <BackgroundScene />}
           </div>
         </Router>
       </EndPageProvider>

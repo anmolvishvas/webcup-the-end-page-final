@@ -1,90 +1,81 @@
-import { createContext, useState, useContext, ReactNode } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { createContext, useState, useContext, ReactNode, useEffect, useCallback } from "react";
 import { EndPage } from "../types";
+import { endPageService } from "../services/endPageService";
 
 interface EndPageContextType {
   pages: EndPage[];
-  addPage: (page: Omit<EndPage, "id" | "createdAt" | "comments">) => string;
-  getPage: (id: string) => EndPage | undefined;
+  topPages: EndPage[];
+  isLoading: boolean;
+  error: string | null;
+  addPage: (page: Omit<EndPage, "id" | "uuid" | "createdAt" | "comments">) => void;
+  getPage: (uuid: string) => EndPage | undefined;
   addComment: (pageId: string, text: string, author: string) => void;
+  refreshPages: () => Promise<void>;
 }
 
 const EndPageContext = createContext<EndPageContextType | undefined>(undefined);
 
 export const EndPageProvider = ({ children }: { children: ReactNode }) => {
-  const [pages, setPages] = useState<EndPage[]>([
-    {
-      id: "1",
-      title: "My Last Day",
-      content:
-        "After 5 years, it's time to say goodbye. It's been an incredible journey.",
-      tone: "dramatic",
-      createdAt: new Date().toISOString(),
-      backgroundType: "image",
-      backgroundValue:
-        "https://images.unsplash.com/photo-1533941411526-a0cc3d10f516",
-      images: [],
-      gifs: [],
-      videos: [],
-      comments: [],
-    },
-    {
-      id: "2",
-      title: "So Long, and Thanks for All the Fish",
-      content:
-        "I'd like to say it's been fun. I'd like to, but I can't. Anyway, bye!",
-      tone: "ironic",
-      createdAt: new Date().toISOString(),
-      backgroundType: "image",
-      backgroundValue: "https://images.unsplash.com/photo-1533289408336-ac92d0dbf036",
-      images: [],
-      gifs: [],
-      videos: [],
-      comments: [],
-    },
-    {
-      id: "3",
-      title: "Un dernier au revoir...",
-      content:
-        "Après tant d'années ensemble, les mots me manquent pour exprimer ma gratitude. Ce n'est pas un adieu, mais un simple au revoir...",
-      tone: "touchant",
-      createdAt: new Date().toISOString(),
-      backgroundType: "image",
-      backgroundValue: "https://images.unsplash.com/photo-1516585427167-9f4af9627e6c",
-      images: [],
-      gifs: [],
-      videos: [],
-      comments: [],
-    },
-  ]);
+  const [pages, setPages] = useState<EndPage[]>([]);
+  const [topPages, setTopPages] = useState<EndPage[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const addPage = (page: Omit<EndPage, "id" | "createdAt" | "comments">) => {
-    const id = uuidv4();
+  const fetchEndPages = useCallback(async () => {
+    try {
+      const result = await endPageService.getAllEndPages();
+      if (!result.success || !result.data) {
+        throw new Error(result.error || "Failed to fetch end pages");
+      }
+
+      // Filter out private pages and sort by average rating
+      const publicPages = result.data.filter(page => !page.isPrivate);
+      const sortedPages = [...publicPages].sort((a, b) => {
+        const ratingA = a.averageRating || 0;
+        const ratingB = b.averageRating || 0;
+        return ratingB - ratingA;
+      });
+
+      setPages(result.data);
+      setTopPages(sortedPages.slice(0, 3));
+      setError(null);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An error occurred");
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchEndPages();
+  }, [fetchEndPages]);
+
+  const addPage = (page: Omit<EndPage, "id" | "uuid" | "createdAt" | "comments">) => {
     const newPage: EndPage = {
       ...page,
-      id,
+      id: pages.length + 1,
+      uuid: crypto.randomUUID(),
       createdAt: new Date().toISOString(),
       comments: [],
     };
 
     setPages([...pages, newPage]);
-    return id;
   };
 
-  const getPage = (id: string) => {
-    return pages.find((page) => page.id === id);
+  const getPage = (uuid: string) => {
+    return pages.find((page) => page.uuid === uuid);
   };
 
   const addComment = (pageId: string, text: string, author: string) => {
     setPages(
       pages.map((page) => {
-        if (page.id === pageId) {
+        if (page.uuid === pageId) {
           return {
             ...page,
             comments: [
-              ...page.comments,
+              ...(page.comments || []),
               {
-                id: uuidv4(),
+                id: crypto.randomUUID(),
                 text,
                 author,
                 createdAt: new Date().toISOString(),
@@ -98,7 +89,16 @@ export const EndPageProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <EndPageContext.Provider value={{ pages, addPage, getPage, addComment }}>
+    <EndPageContext.Provider value={{ 
+      pages, 
+      topPages, 
+      isLoading, 
+      error, 
+      addPage, 
+      getPage, 
+      addComment,
+      refreshPages: fetchEndPages 
+    }}>
       {children}
     </EndPageContext.Provider>
   );
