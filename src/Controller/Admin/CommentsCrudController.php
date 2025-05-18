@@ -23,7 +23,7 @@ class CommentsCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('author'),
             TextareaField::new('text'),
-            AssociationField::new('endPage'),
+            AssociationField::new('end_page'),
             DateTimeField::new('createdAt')->hideOnForm(),
         ];
     }
