@@ -186,11 +186,40 @@ const CreatePage = ({ setShowScene }: CreatePageProps) => {
         throw new Error(result.error || "Failed to create end page");
       }
 
-      // Upload files if any
-      if (images.length > 0) {
+      // Upload all media files
+      const filesToUpload: File[] = [...images];
+
+      // Convert base64 videos to files
+      if (videos.length > 0) {
+        for (const videoBase64 of videos) {
+          const videoBlob = await fetch(videoBase64).then(r => r.blob());
+          const videoFile = new File([videoBlob], `video-${Date.now()}.mp4`, { type: 'video/mp4' });
+          filesToUpload.push(videoFile);
+        }
+      }
+
+      // Convert GIFs to files
+      if (gifs.length > 0) {
+        for (const gifUrl of gifs) {
+          const gifResponse = await fetch(gifUrl);
+          const gifBlob = await gifResponse.blob();
+          const gifFile = new File([gifBlob], `gif-${Date.now()}.gif`, { type: 'image/gif' });
+          filesToUpload.push(gifFile);
+        }
+      }
+
+      // Convert audio base64 to file if exists
+      if (music) {
+        const audioBlob = await fetch(music).then(r => r.blob());
+        const audioFile = new File([audioBlob], `audio-${Date.now()}.mp3`, { type: 'audio/mpeg' });
+        filesToUpload.push(audioFile);
+      }
+
+      // Upload all files if any exist
+      if (filesToUpload.length > 0) {
         const uploadResult = await endPageService.uploadFiles(
           result.data.id,
-          images
+          filesToUpload
         );
         if (!uploadResult.success) {
           throw new Error(uploadResult.error || "Failed to upload files");
@@ -631,18 +660,39 @@ const CreatePage = ({ setShowScene }: CreatePageProps) => {
                   content={content || t("createPage.contentPreview")}
                   tone={tone}
                   medias={[
-                    ...images.map((img) => ({
+                    ...images.map((img, idx) => ({
+                      "@id": `/api/media/${idx}`,
+                      "@type": "Media",
+                      id: idx,
+                      media_type: "image",
                       url: URL.createObjectURL(img),
-                      type: "image",
+                      full_url: URL.createObjectURL(img),
+                      original_filename: img.name,
+                      file_size: img.size,
+                      createdAt: new Date().toISOString()
                     })),
-                    ...videos.map((video) => ({
+                    ...videos.map((video, idx) => ({
+                      "@id": `/api/media/${images.length + idx}`,
+                      "@type": "Media",
+                      id: images.length + idx,
+                      media_type: "video",
                       url: video,
-                      type: "video",
+                      full_url: video,
+                      original_filename: `video-${idx}.mp4`,
+                      file_size: 0,
+                      createdAt: new Date().toISOString()
                     })),
-                    ...gifs.map((gif) => ({
+                    ...gifs.map((gif, idx) => ({
+                      "@id": `/api/media/${images.length + videos.length + idx}`,
+                      "@type": "Media",
+                      id: images.length + videos.length + idx,
+                      media_type: "image",
                       url: gif,
-                      type: "image",
-                    })),
+                      full_url: gif,
+                      original_filename: `gif-${idx}.gif`,
+                      file_size: 0,
+                      createdAt: new Date().toISOString()
+                    }))
                   ]}
                 />
               ) : (

@@ -303,6 +303,14 @@ const ViewPage = ({ setShowScene }: ViewPageProps) => {
                           className="w-full rounded-md shadow-lg"
                           controls
                         />
+                      ) : media.media_type.startsWith('audio') ? (
+                        <div key={`audio-${idx}`} className="flex items-center bg-black/30 p-4 rounded-md shadow-lg">
+                          <audio
+                            src={media.full_url}
+                            className="w-full"
+                            controls
+                          />
+                        </div>
                       ) : (
                         <img
                           key={`img-${idx}`}
