@@ -101,4 +101,9 @@ class Comments
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return sprintf('Comment by %s: %s', $this->author, substr($this->text, 0, 30) . (strlen($this->text) > 30 ? '...' : ''));
+    }
 }

@@ -43,7 +43,7 @@ const DiaryBook: React.FC<DiaryBookProps> = ({
   title,
   content,
   tone,
-  medias
+  medias,
 }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -112,8 +112,8 @@ const DiaryBook: React.FC<DiaryBookProps> = ({
         <div className="page-overlay">
           <h2 className="text-xl font-serif mb-4 text-gray-800">Memories</h2>
           <div className="grid grid-cols-2 gap-3">
-            {medias.map((media, idx) => (
-              media.media_type.startsWith('video') ? (
+            {medias.map((media, idx) =>
+              media.media_type && media.media_type.startsWith("video") ? (
                 <div
                   key={`video-${idx}`}
                   className="overflow-hidden rounded-md shadow-md"
@@ -136,7 +136,7 @@ const DiaryBook: React.FC<DiaryBookProps> = ({
                   />
                 </div>
               )
-            ))}
+            )}
           </div>
         </div>
       </Page>

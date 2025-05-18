@@ -2,9 +2,9 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\EndPages;
 use App\Entity\Users;
 use App\Entity\Medias;
-use App\Entity\EndPages;
 use App\Entity\Comments;
 use App\Repository\UsersRepository;
 use App\Repository\MediasRepository;
@@ -16,12 +16,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
-use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Routing\Annotation\Route;
 
-#[IsGranted('ROLE_ADMIN')]
-#[AdminDashboard(routePath: '/admin', routeName: 'admin')]
 class DashboardController extends AbstractDashboardController
 {
     public function __construct(
@@ -33,6 +30,7 @@ class DashboardController extends AbstractDashboardController
     ) {
     }
 
+    #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
         return $this->render('admin/dashboard.html.twig', [
@@ -48,27 +46,16 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('TheEndPage Admin')
-            ->setFaviconPath('favicon.ico')
-            ->renderContentMaximized()
-            ->disableDarkMode();
+            ->setTitle('The End Page Admin');
     }
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::section('Dashboard');
-        yield MenuItem::linkToDashboard('Overview', 'fa fa-home');
-
-        yield MenuItem::section('Content Management');
+        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('End Pages', 'fas fa-book', EndPages::class);
-        yield MenuItem::linkToCrud('Comments', 'fas fa-comments', Comments::class);
-        yield MenuItem::linkToCrud('Media', 'fas fa-image', Medias::class);
-
-        yield MenuItem::section('User Management');
         yield MenuItem::linkToCrud('Users', 'fas fa-users', Users::class);
-
-        yield MenuItem::section('Tools');
-        yield MenuItem::linkToRoute('Back to Website', 'fas fa-arrow-left', 'app_home');
+        yield MenuItem::linkToCrud('Media', 'fas fa-images', Medias::class);
+        yield MenuItem::linkToCrud('Comments', 'fas fa-comments', Comments::class);
     }
 
     public function configureAssets(): Assets

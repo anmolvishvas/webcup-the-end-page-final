@@ -384,4 +384,9 @@ class EndPages
         }
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->title ?? 'Untitled End Page';
+    }
 }

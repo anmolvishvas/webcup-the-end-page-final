@@ -13,6 +13,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 
 class EndPagesCrudController extends AbstractCrudController
 {
@@ -25,26 +26,29 @@ class EndPagesCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            TextField::new('title'),
-            TextareaField::new('content')->setNumOfRows(10),
-            ChoiceField::new('tone')
-                ->setChoices([
-                    'Dramatic' => Tone::Dramatic,
-                    'Ironic' => Tone::Ironic,
-                    'Ultra Cringe' => Tone::UltraCringe,
-                    'Classy' => Tone::Classy,
-                    'Touching' => Tone::Touching,
-                    'Absurd' => Tone::Absurd,
-                    'Passive Aggressive' => Tone::PassiveAggressive,
-                    'Honest' => Tone::Honest,
-                ]),
-            TextField::new('backgroundType'),
-            TextField::new('backgroundValue'),
-            BooleanField::new('isPrivate'),
+            TextField::new('uuid')->hideOnForm(),
             AssociationField::new('user'),
-            CollectionField::new('comments')->onlyOnDetail(),
-            CollectionField::new('medias')->onlyOnDetail(),
+            TextField::new('title'),
+            TextareaField::new('content'),
+            ChoiceField::new('tone')->setChoices([
+                'Dramatic' => 'dramatic',
+                'Ironic' => 'ironic',
+                'Absurd' => 'absurd',
+                'Honest' => 'honest',
+                'Passive-Aggressive' => 'passive-aggressive',
+                'Ultra-Cringe' => 'ultra-cringe',
+                'Classe' => 'classe',
+                'Touchant' => 'touchant'
+            ]),
+            TextField::new('background_type'),
+            TextField::new('background_value'),
             DateTimeField::new('createdAt')->hideOnForm(),
+            BooleanField::new('isPrivate'),
+            NumberField::new('totalRating')->hideOnForm(),
+            NumberField::new('numberOfVotes')->hideOnForm(),
+            NumberField::new('averageRating')->hideOnForm(),
+            AssociationField::new('medias'),
+            AssociationField::new('comments'),
         ];
     }
 }

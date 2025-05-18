@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { EndPage, EndPagesCollection } from '../types';
+import type { EndPage, EndPagesCollection } from "../types";
 
 const API_URL = "https://localhost:8000/api";
 
@@ -64,23 +64,29 @@ interface EndPagesCollectionResponse {
   "@context": string;
   "@id": string;
   "@type": string;
-  "totalItems": number;
-  "member": EndPage[];
+  totalItems: number;
+  member: EndPage[];
 }
 
 export const endPageService = {
-  createEndPage: async (data: CreateEndPageRequest): Promise<{ success: boolean; data?: CreateEndPageResponse; error?: string }> => {
+  createEndPage: async (
+    data: CreateEndPageRequest
+  ): Promise<{
+    success: boolean;
+    data?: CreateEndPageResponse;
+    error?: string;
+  }> => {
     try {
       const response = await axios.post<CreateEndPageResponse>(
         `${API_URL}/end_pages`,
         {
           ...data,
-          emails: data.emails || []
+          emails: data.emails || [],
         },
         {
           headers: {
             "Content-Type": "application/ld+json",
-          }
+          },
         }
       );
 
@@ -103,22 +109,21 @@ export const endPageService = {
     }
   },
 
-  uploadFiles: async (pageId: string, files: File[]): Promise<{ success: boolean; error?: string }> => {
+  uploadFiles: async (
+    pageId: string,
+    files: File[]
+  ): Promise<{ success: boolean; error?: string }> => {
     try {
       const formData = new FormData();
-      files.forEach(file => {
-        formData.append('files[]', file);
+      files.forEach((file) => {
+        formData.append("files[]", file);
       });
 
-      await axios.post(
-        `${API_URL}/end_pages/${pageId}/upload`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      await axios.post(`${API_URL}/end_pages/${pageId}/upload`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       return {
         success: true,
@@ -138,14 +143,20 @@ export const endPageService = {
     }
   },
 
-  getEndPage: async (uuid: string): Promise<{ success: boolean; data?: CreateEndPageResponse; error?: string }> => {
+  getEndPage: async (
+    uuid: string
+  ): Promise<{
+    success: boolean;
+    data?: CreateEndPageResponse;
+    error?: string;
+  }> => {
     try {
       const response = await axios.get<CreateEndPageResponse>(
         `${API_URL}/end_pages/${uuid}`,
         {
           headers: {
             "Content-Type": "application/ld+json",
-          }
+          },
         }
       );
 
@@ -168,7 +179,10 @@ export const endPageService = {
     }
   },
 
-  addComment: async (uuid: string, comment: { text: string; author: string }): Promise<{ success: boolean; error?: string }> => {
+  addComment: async (
+    uuid: string,
+    comment: { text: string; author: string }
+  ): Promise<{ success: boolean; error?: string }> => {
     try {
       await axios.post(
         `${API_URL}/comments`,
@@ -176,12 +190,12 @@ export const endPageService = {
           text: comment.text,
           author: comment.author,
           end_page: `/api/end_pages/${uuid}`,
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
         },
         {
           headers: {
             "Content-Type": "application/ld+json",
-          }
+          },
         }
       );
 
@@ -203,7 +217,18 @@ export const endPageService = {
     }
   },
 
-  addRating: async (uuid: string, rating: number): Promise<{ success: boolean; data?: { totalRating: number; numberOfVotes: number; averageRating: number }; error?: string }> => {
+  addRating: async (
+    uuid: string,
+    rating: number
+  ): Promise<{
+    success: boolean;
+    data?: {
+      totalRating: number;
+      numberOfVotes: number;
+      averageRating: number;
+    };
+    error?: string;
+  }> => {
     try {
       const response = await axios.put<RatingResponse>(
         `${API_URL}/end_pages/${uuid}/rating`,
@@ -211,13 +236,13 @@ export const endPageService = {
         {
           headers: {
             "Content-Type": "application/json",
-          }
+          },
         }
       );
 
       return {
         success: true,
-        data: response.data.endPage
+        data: response.data.endPage,
       };
     } catch (error) {
       const axiosError = error as { response?: { data: { message: string } } };
@@ -234,14 +259,15 @@ export const endPageService = {
     }
   },
 
-  getUserEndPages: async (userId: number): Promise<{ success: boolean; data?: EndPage[]; error?: string }> => {
+  getUserEndPages: async (
+    userId: number
+  ): Promise<{ success: boolean; data?: EndPage[]; error?: string }> => {
     try {
       const response = await axios.get<EndPagesCollection>(
         `${API_URL}/users/${userId}/end_pages`,
         {
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         }
       );
@@ -265,13 +291,17 @@ export const endPageService = {
     }
   },
 
-  getAllEndPages: async (): Promise<{ success: boolean; data?: EndPage[]; error?: string }> => {
+  getAllEndPages: async (): Promise<{
+    success: boolean;
+    data?: EndPage[];
+    error?: string;
+  }> => {
     try {
       const response = await axios.get<EndPagesCollectionResponse>(
         `${API_URL}/end_pages`,
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         }
       );
@@ -294,4 +324,4 @@ export const endPageService = {
       };
     }
   },
-}; 
+};

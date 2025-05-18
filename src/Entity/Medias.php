@@ -168,4 +168,9 @@ class Medias
     {
         return 'http://localhost/theEndPage_Webcup/public/uploads/' . $this->url;
     }
+
+    public function __toString(): string
+    {
+        return $this->original_filename ?? 'Unknown Media';
+    }
 }

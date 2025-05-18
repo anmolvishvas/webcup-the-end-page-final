@@ -182,7 +182,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __toString(): string
     {
-        return $this->firstname . ' ' . $this->lastname;
+        return sprintf('%s %s (%s)', $this->firstname, $this->lastname, $this->email);
     }
 
     /**

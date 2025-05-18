@@ -5,11 +5,11 @@ namespace App\Controller\Admin;
 use App\Entity\Medias;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 
 class MediasCrudController extends AbstractCrudController
 {
@@ -22,14 +22,15 @@ class MediasCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            ChoiceField::new('mediaType')->setChoices([
-                'Image' => 'image',
-                'Video' => 'video',
-                'Audio' => 'audio',
-            ]),
-            UrlField::new('url'),
             AssociationField::new('end_pages'),
+            TextField::new('media_type'),
+            TextField::new('url'),
+            TextField::new('original_filename'),
+            NumberField::new('file_size'),
             DateTimeField::new('createdAt')->hideOnForm(),
+            ImageField::new('url')
+                ->setBasePath('/uploads')
+                ->onlyOnIndex(),
         ];
     }
 } 
