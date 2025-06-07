@@ -11,6 +11,10 @@ interface EndPageContextType {
   getPage: (uuid: string) => EndPage | undefined;
   addComment: (pageId: string, text: string, author: string) => void;
   refreshPages: () => Promise<void>;
+  showRatingModal: boolean;
+  setShowRatingModal: (show: boolean) => void;
+  isRatingComplete: boolean;
+  setIsRatingComplete: (complete: boolean) => void;
 }
 
 const EndPageContext = createContext<EndPageContextType | undefined>(undefined);
@@ -20,6 +24,8 @@ export const EndPageProvider = ({ children }: { children: ReactNode }) => {
   const [topPages, setTopPages] = useState<EndPage[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showRatingModal, setShowRatingModal] = useState(false);
+  const [isRatingComplete, setIsRatingComplete] = useState(false);
 
   const fetchEndPages = useCallback(async () => {
     try {
@@ -97,7 +103,11 @@ export const EndPageProvider = ({ children }: { children: ReactNode }) => {
       addPage, 
       getPage, 
       addComment,
-      refreshPages: fetchEndPages 
+      refreshPages: fetchEndPages,
+      showRatingModal,
+      setShowRatingModal,
+      isRatingComplete,
+      setIsRatingComplete,
     }}>
       {children}
     </EndPageContext.Provider>

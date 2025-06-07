@@ -25,6 +25,8 @@ const RatingModal = ({ isOpen, onClose, onRate, isRatingComplete }: RatingModalP
   const handleRate = (rating: number) => {
     console.log("Rating submitted:", rating);
     onRate(rating);
+    // Show video immediately after rating
+    setShowVideo(true);
   };
 
   const handleVideoClose = () => {

@@ -167,7 +167,8 @@ class Medias
     public function getFullUrl(): string
     {
         // return 'https://lrsquoescouad.maurice.webcup.hodi.host/webcup-the-end-page-final/public/uploads/' . $this->url;
-        return 'http://localhost/theEndPage_Webcup/public/uploads/' . $this->url;
+        return 'https://theendpage.devanmol.tech/uploads/' . $this->url;
+        // return 'http://localhost/theEndPage_Webcup/public/uploads/' . $this->url;
     }
 
     public function __toString(): string

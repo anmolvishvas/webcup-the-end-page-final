@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Share, MessageSquare, Send, ArrowLeft, BookOpen, Lock } from "lucide-react";
+import { Share, ArrowLeft, BookOpen, Lock } from "lucide-react";
 import { endPageService } from "../services/endPageService";
 import { useTranslation } from "react-i18next";
 import DiaryBook from "../components/diary/DiaryBook";
@@ -19,17 +19,12 @@ const ViewPage = ({ setShowScene }: ViewPageProps) => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const { t } = useTranslation();
-  const { refreshPages } = useEndPage();
+  const { refreshPages, getPage, showRatingModal, setShowRatingModal, isRatingComplete, setIsRatingComplete } = useEndPage();
   const { currentUser } = useAuth();
   const [page, setPage] = useState<CreateEndPageResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [commentText, setCommentText] = useState("");
-  const [commentAuthor, setCommentAuthor] = useState("");
-  const [showComments, setShowComments] = useState(false);
   const [viewMode, setViewMode] = useState<"standard" | "diary">("standard");
-  const [showRatingModal, setShowRatingModal] = useState(false);
-  const [isRatingComplete, setIsRatingComplete] = useState(false);
 
   const getEmojisForTone = (tone: string) => {
     const emojis = {
@@ -75,28 +70,6 @@ const ViewPage = ({ setShowScene }: ViewPageProps) => {
   useEffect(() => {
     fetchEndPage();
   }, [fetchEndPage]);
-
-  const handleSubmitComment = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!commentText || !commentAuthor || !id) return;
-
-    try {
-      const result = await endPageService.addComment(id, {
-        text: commentText,
-        author: commentAuthor
-      });
-      
-      if (!result.success) {
-        throw new Error(result.error || "Failed to add comment");
-      }
-
-      setCommentText("");
-      setCommentAuthor("");
-      fetchEndPage();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to add comment");
-    }
-  };
 
   const handleShare = () => {
     if (navigator.share) {
@@ -152,38 +125,13 @@ const ViewPage = ({ setShowScene }: ViewPageProps) => {
       await refreshPages();
       setIsRatingComplete(true);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to submit rating");
+      console.error('Failed to submit rating:', err);
     }
   };
 
   const handleModalClose = () => {
     setShowRatingModal(false);
     setIsRatingComplete(false);
-    navigate('/');
-  };
-
-  const formatCommentDate = (date: Date): string => {
-    const now = new Date();
-    const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
-    const diffInMinutes = Math.floor(diffInSeconds / 60);
-    const diffInHours = Math.floor(diffInMinutes / 60);
-    const diffInDays = Math.floor(diffInHours / 24);
-
-    if (diffInSeconds < 60) {
-      return 'just now';
-    } else if (diffInMinutes < 60) {
-      return `${diffInMinutes} ${diffInMinutes === 1 ? 'minute' : 'minutes'} ago`;
-    } else if (diffInHours < 24) {
-      return `${diffInHours} ${diffInHours === 1 ? 'hour' : 'hours'} ago`;
-    } else if (diffInDays < 7) {
-      return `${diffInDays} ${diffInDays === 1 ? 'day' : 'days'} ago`;
-    } else {
-      return date.toLocaleDateString(undefined, {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric'
-      });
-    }
   };
 
   if (isLoading) {
@@ -339,100 +287,6 @@ const ViewPage = ({ setShowScene }: ViewPageProps) => {
                   </div>
                 </div>
               </motion.div>
-
-              {showComments && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  transition={{ duration: 0.3 }}
-                  className="mt-8 bg-black/50 backdrop-blur-sm p-6 rounded-xl"
-                >
-                  <h2 className="text-xl font-serif mb-4">Comments</h2>
-
-                  <form onSubmit={handleSubmitComment} className="mb-6">
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mb-3">
-                      <input
-                        value={commentAuthor}
-                        onChange={(e) => setCommentAuthor(e.target.value)}
-                        placeholder="Your name"
-                        className="md:col-span-1 p-2 bg-primary-light rounded-md border border-gray-700"
-                        required
-                      />
-                      <textarea
-                        value={commentText}
-                        onChange={(e) => setCommentText(e.target.value)}
-                        placeholder="Share your thoughts about this goodbye message..."
-                        className="md:col-span-3 p-2 bg-primary-light rounded-md border border-gray-700 min-h-[80px] resize-y"
-                        required
-                      />
-                    </div>
-                    <div className="flex justify-end">
-                      <button
-                        type="submit"
-                        className="flex items-center bg-secondary hover:bg-secondary-light px-4 py-2 rounded-md text-sm transition-colors"
-                      >
-                        <Send className="mr-2 h-4 w-4" />
-                        Post Comment
-                      </button>
-                    </div>
-                  </form>
-
-                  <div className="space-y-4">
-                    {page.comments.length === 0 ? (
-                      <p className="text-gray-400 text-center py-4">
-                        No comments yet. Be the first to share your thoughts.
-                      </p>
-                    ) : (
-                      <div className="space-y-4">
-                        <div className="flex justify-between items-center mb-4">
-                          <h3 className="text-lg font-medium text-white/80">
-                            {page.comments.length} {page.comments.length === 1 ? 'Comment' : 'Comments'}
-                          </h3>
-                          <div className="text-sm text-white/60">
-                            Sorted by newest first
-                          </div>
-                        </div>
-                        {[...page.comments]
-                          .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-                          .map((comment) => (
-                          <div
-                            key={comment.id}
-                            className="bg-gray-800/50 p-4 rounded-md hover:bg-gray-800/70 transition-colors"
-                          >
-                            <div className="flex justify-between items-center mb-2">
-                              <div className="flex items-center gap-2">
-                                <span className="font-medium text-secondary">
-                                  {comment.author}
-                                </span>
-                                <span className="text-xs text-gray-400 italic">
-                                  wrote
-                                </span>
-                              </div>
-                              <time 
-                                dateTime={comment.createdAt}
-                                className="text-xs text-gray-400"
-                                title={new Date(comment.createdAt).toLocaleString(undefined, {
-                                  weekday: 'long',
-                                  year: 'numeric',
-                                  month: 'long',
-                                  day: 'numeric',
-                                  hour: '2-digit',
-                                  minute: '2-digit'
-                                })}
-                              >
-                                {formatCommentDate(new Date(comment.createdAt))}
-                              </time>
-                            </div>
-                            <p className="text-gray-200 whitespace-pre-wrap leading-relaxed">
-                              {comment.text}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </motion.div>
-              )}
             </>
           ) : (
             <div className="flex justify-center items-center py-8">

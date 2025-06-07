@@ -10,7 +10,8 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://localhost:8000",
+        // target: "https://localhost:8000",
+        target: "https://theendpage.devanmol.tech/",
         // target: "https://lrsquoescouad.maurice.webcup.hodi.host/",
         secure: false,
         changeOrigin: true,

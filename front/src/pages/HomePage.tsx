@@ -52,8 +52,16 @@ const HomePage = ({ setShowScene }: HomePageProps) => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {(['dramatic', 'ironic', 'absurd'] as const).map((tone) => (
-              <div key={tone} className="bg-primary-light p-6 rounded-lg">
-                <h3 className="font-serif text-xl mb-3 capitalize">
+              <div 
+                key={tone} 
+                className="bg-primary-light p-6 rounded-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-secondary/20"
+              >
+                <h3 className="font-serif text-xl mb-3 capitalize flex items-center gap-2">
+                  <span className="text-3xl transition-transform duration-300 hover:scale-110 inline-block">
+                    {tone === 'dramatic' && '🎭'}
+                    {tone === 'ironic' && '😏'}
+                    {tone === 'absurd' && '🤪'}
+                  </span>
                   {t(`tones.${tone}`)}
                 </h3>
                 <p className="text-gray-300 mb-4">
@@ -89,22 +97,33 @@ const HomePage = ({ setShowScene }: HomePageProps) => {
               {topPages[1] && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                  className="relative"
+                  animate={{ 
+                    opacity: 1, 
+                    y: [0, -8, 0],
+                  }}
+                  transition={{ 
+                    duration: 0.5, 
+                    delay: 0.2,
+                    y: {
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }
+                  }}
+                  className="relative group"
                 >
                   <Link to={`/view/${topPages[1].uuid}`} className="block">
                     <motion.div
                       initial={{ height: 0 }}
                       animate={{ height: 120 }}
                       transition={{ duration: 0.8, delay: 0.4 }}
-                      className="bg-gradient-to-b from-gray-700 to-gray-800 w-full rounded-t-lg relative overflow-hidden group"
+                      className="bg-gradient-to-b from-gray-700 to-gray-800 w-full rounded-t-lg relative overflow-hidden group-hover:from-gray-600 group-hover:to-gray-700 transition-all duration-300"
                     >
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <Medal className="w-12 h-12 text-gray-200 drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]" />
+                        <Medal className="w-12 h-12 text-gray-200 drop-shadow-[0_0_10px_rgba(255,255,255,0.3)] group-hover:scale-110 transition-transform duration-300" />
                       </div>
                     </motion.div>
-                    <div className="bg-primary-light/30 backdrop-blur-sm p-6 rounded-b-lg">
+                    <div className="bg-primary-light/30 backdrop-blur-sm p-6 rounded-b-lg group-hover:bg-primary-light/40 transition-all duration-300">
                       <h3 className="font-serif text-xl mb-2 line-clamp-1">{topPages[1].title}</h3>
                       <p className="text-gray-400 text-sm line-clamp-2">{topPages[1].content}</p>
                       <div className="mt-4 flex items-center text-secondary">
@@ -120,26 +139,36 @@ const HomePage = ({ setShowScene }: HomePageProps) => {
               {topPages[0] && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="relative md:-mt-8"
+                  animate={{ 
+                    opacity: 1, 
+                    y: [0, -12, 0],
+                  }}
+                  transition={{ 
+                    duration: 0.5,
+                    y: {
+                      duration: 3.5,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }
+                  }}
+                  className="relative md:-mt-8 group"
                 >
                   <Link to={`/view/${topPages[0].uuid}`} className="block">
                     <motion.div
                       initial={{ height: 0 }}
                       animate={{ height: 160 }}
                       transition={{ duration: 0.8 }}
-                      className="bg-gradient-to-b from-yellow-500 to-yellow-700 w-full rounded-t-lg relative overflow-hidden group"
+                      className="bg-gradient-to-b from-yellow-500 to-yellow-700 w-full rounded-t-lg relative overflow-hidden group-hover:from-yellow-400 group-hover:to-yellow-600 transition-all duration-300"
                     >
                       <div className="absolute inset-0">
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
-                          <Crown className="w-16 h-16 text-yellow-400 drop-shadow-[0_0_15px_rgba(255,215,0,0.5)]" />
+                          <Crown className="w-16 h-16 text-yellow-400 drop-shadow-[0_0_15px_rgba(255,215,0,0.5)] group-hover:scale-110 transition-transform duration-300" />
                           <Sparkles className="w-8 h-8 text-yellow-300 absolute -top-2 -right-6 animate-pulse" />
                           <Sparkles className="w-8 h-8 text-yellow-300 absolute -top-2 -left-6 animate-pulse" />
                         </div>
                       </div>
                     </motion.div>
-                    <div className="bg-primary-light/30 backdrop-blur-sm p-6 rounded-b-lg border-t-2 border-yellow-500/20">
+                    <div className="bg-primary-light/30 backdrop-blur-sm p-6 rounded-b-lg border-t-2 border-yellow-500/20 group-hover:bg-primary-light/40 group-hover:border-yellow-400/30 transition-all duration-300">
                       <h3 className="font-serif text-xl mb-2 line-clamp-1">{topPages[0].title}</h3>
                       <p className="text-gray-400 text-sm line-clamp-2">{topPages[0].content}</p>
                       <div className="mt-4 flex items-center text-yellow-500">
@@ -155,22 +184,33 @@ const HomePage = ({ setShowScene }: HomePageProps) => {
               {topPages[2] && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.4 }}
-                  className="relative"
+                  animate={{ 
+                    opacity: 1, 
+                    y: [0, -6, 0],
+                  }}
+                  transition={{ 
+                    duration: 0.5, 
+                    delay: 0.4,
+                    y: {
+                      duration: 2.8,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }
+                  }}
+                  className="relative group"
                 >
                   <Link to={`/view/${topPages[2].uuid}`} className="block">
                     <motion.div
                       initial={{ height: 0 }}
                       animate={{ height: 80 }}
                       transition={{ duration: 0.8, delay: 0.6 }}
-                      className="bg-gradient-to-b from-amber-700 to-amber-800 w-full rounded-t-lg relative overflow-hidden group"
+                      className="bg-gradient-to-b from-amber-700 to-amber-800 w-full rounded-t-lg relative overflow-hidden group-hover:from-amber-600 group-hover:to-amber-700 transition-all duration-300"
                     >
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <Trophy className="w-12 h-12 text-amber-600 drop-shadow-[0_0_10px_rgba(180,83,9,0.3)]" />
+                        <Trophy className="w-12 h-12 text-amber-600 drop-shadow-[0_0_10px_rgba(180,83,9,0.3)] group-hover:scale-110 transition-transform duration-300" />
                       </div>
                     </motion.div>
-                    <div className="bg-primary-light/30 backdrop-blur-sm p-6 rounded-b-lg">
+                    <div className="bg-primary-light/30 backdrop-blur-sm p-6 rounded-b-lg group-hover:bg-primary-light/40 transition-all duration-300">
                       <h3 className="font-serif text-xl mb-2 line-clamp-1">{topPages[2].title}</h3>
                       <p className="text-gray-400 text-sm line-clamp-2">{topPages[2].content}</p>
                       <div className="mt-4 flex items-center text-amber-600">

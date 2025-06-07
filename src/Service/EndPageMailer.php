@@ -83,7 +83,7 @@ class EndPageMailer
             ]);
 
             $email = (new Email())
-                ->from('no-reply@theendpage.com')
+                ->from('anmol@theendpage.devanmol.tech')
                 ->to($emailAddress)
                 ->subject($subject)
                 ->text($content);

@@ -39,15 +39,15 @@ class AppFixtures extends Fixture
         if (is_string($value) && str_starts_with($value, '!php/const App\\Enum\\Tone::')) {
             $toneName = substr($value, strlen('!php/const App\\Enum\\Tone::'));
             return match ($toneName) {
-                'Dramatic' => Tone::Dramatic,
-                'Ironic' => Tone::Ironic,
-                'UltraCringe' => Tone::UltraCringe,
-                'Classy' => Tone::Classy,
-                'Touching' => Tone::Touching,
-                'Absurd' => Tone::Absurd,
-                'PassiveAggressive' => Tone::PassiveAggressive,
-                'Honest' => Tone::Honest,
-                default => Tone::Dramatic // Default to dramatic if unknown
+                'Dramatic' => Tone::DRAMATIC,
+                'Ironic' => Tone::IRONIC,
+                'UltraCringe' => Tone::ULTRA_CRINGE,
+                'Classy' => Tone::CLASSE,
+                'Touching' => Tone::TOUCHANT,
+                'Absurd' => Tone::ABSURD,
+                'PassiveAggressive' => Tone::PASSIVE_AGGRESSIVE,
+                'Honest' => Tone::HONEST,
+                default => Tone::DRAMATIC // Default to dramatic if unknown
             };
         }
         // If not using PHP constant syntax, try to use the value directly
@@ -92,7 +92,7 @@ class AppFixtures extends Fixture
                 error_log("Added user reference: {$reference}");
             }
         }
-        
+
         // Flush users first
         $manager->flush();
         error_log("Users flushed to database");
@@ -100,18 +100,18 @@ class AppFixtures extends Fixture
         // Load end pages
         $endPagesData = Yaml::parseFile(__DIR__ . '/../../fixtures/end_pages.yaml');
         error_log("Loading end pages...");
-        
+
         // Create and persist all end pages
         foreach ($endPagesData['App\\Entity\\EndPages'] as $reference => $pageData) {
             error_log("Processing end page: {$reference}");
             $endPage = new EndPages();
             $validEndPage = true;
-            
+
             // Set UUID first if it's not already set
             if (!$endPage->getUuid()) {
                 $endPage->__construct(); // This will set the UUID
             }
-            
+
             foreach ($pageData as $property => $value) {
                 $setter = 'set' . ucfirst($property);
                 if (method_exists($endPage, $setter)) {
@@ -130,7 +130,7 @@ class AppFixtures extends Fixture
                             $value = $this->getToneValue($value);
                         } catch (\ValueError $e) {
                             error_log("Invalid tone value: $value, using default");
-                            $value = Tone::Dramatic;
+                            $value = Tone::DRAMATIC;
                         }
                     } elseif ($property === 'createdAt') {
                         $value = $this->generateDate($value);
@@ -138,7 +138,7 @@ class AppFixtures extends Fixture
                     $endPage->$setter($value);
                 }
             }
-            
+
             if ($validEndPage) {
                 $manager->persist($endPage);
                 $this->addRef($reference, $endPage);
@@ -147,7 +147,7 @@ class AppFixtures extends Fixture
                 error_log("  Skipping invalid end page: {$reference}");
             }
         }
-        
+
         // Flush end pages before processing comments
         $manager->flush();
         error_log("End pages flushed to database");
@@ -156,13 +156,13 @@ class AppFixtures extends Fixture
         if (file_exists(__DIR__ . '/../../fixtures/comments.yaml')) {
             $commentsData = Yaml::parseFile(__DIR__ . '/../../fixtures/comments.yaml');
             error_log("Loading comments...");
-            
+
             foreach ($commentsData['App\\Entity\\Comments'] ?? [] as $reference => $commentData) {
                 error_log("Processing comment: {$reference}");
                 $comment = new Comments();
                 $validComment = true;
                 $endPageRef = null;
-                
+
                 foreach ($commentData as $property => $value) {
                     $setter = 'set' . ucfirst($property);
                     if (method_exists($comment, $setter)) {
@@ -183,7 +183,7 @@ class AppFixtures extends Fixture
                         $comment->$setter($value);
                     }
                 }
-                
+
                 // Verify the comment is valid and has required references
                 if ($validComment && $comment->getEndPage()) {
                     $manager->persist($comment);
@@ -192,10 +192,10 @@ class AppFixtures extends Fixture
                     error_log("  Skipping invalid comment: {$reference}");
                 }
             }
-            
+
             // Final flush for comments
             $manager->flush();
             error_log("Comments flushed to database");
         }
     }
-} 
+}

@@ -11,6 +11,7 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(): RedirectResponse
     {
-        return $this->redirect('https://lrsquoescouad.maurice.webcup.hodi.host/');
+        return $this->redirect('https://theendpage.devanmol.tech/');
+        // return $this->redirect('https://lrsquoescouad.maurice.webcup.hodi.host/');
     }
-} 
+}

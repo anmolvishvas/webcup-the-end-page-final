@@ -46,7 +46,7 @@ class AuthController extends AbstractController
         $entityManager->flush();
 
         $email = (new Email())
-            ->from('no-reply@example.com')
+            ->from('anmol@theendpage.devanmol.tech')
             ->to($user->getEmail())
             ->subject('Welcome to Our Platform')
             ->text(sprintf(
